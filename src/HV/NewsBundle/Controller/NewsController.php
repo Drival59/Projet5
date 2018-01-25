@@ -2,12 +2,14 @@
 
 namespace HV\NewsBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class NewsController
+
+class NewsController extends Controller
 {
     public function indexAction()
     {
-        return new Response("Notre propre Hello World !");
+      return $this->render('@HVNews/News/index.html.twig');
     }
 }

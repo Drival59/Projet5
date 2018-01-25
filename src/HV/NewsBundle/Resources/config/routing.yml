@@ -1,3 +1,4 @@
 hv_news_homepage:
-    path:     /
-    defaults: { _controller: HVNewsBundle:News:index }
+    path: /
+    defaults:
+        _controller: HVNewsBundle:News:index
