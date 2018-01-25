@@ -1,0 +1,4 @@
+services:
+#    hv_news.example:
+#        class: HV\NewsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

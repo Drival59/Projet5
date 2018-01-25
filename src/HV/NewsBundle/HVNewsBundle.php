@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace HV\NewsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class HVNewsBundle extends Bundle
 {
 }
