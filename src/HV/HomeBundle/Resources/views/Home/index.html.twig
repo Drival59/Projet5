@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+  WebSiteName
+{% endblock %}
+
+{% block body %}
+  <div id="metalBanner">
+    <div id="titleBanner">
+      <h1>WebSiteName</h1>
+      <p>Le métal dans toute sa splendeur</p>
+    </div>
+  </div>
+
+  <div id="lastsNewsCategory">
+    <h2>Dernieres actualités</h2>
+    <div id="lastsNews">
+      <div class="lastPost">
+        <div class="imgLastPost">
+          <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
+        </div>
+        <h3>Avatar sort son dernier album</h3>
+        <i>Ecrit par Drival le 29/01/2018</i>
+      </div>
+      <div class="lastPost">
+      <div class="imgLastPost">
+        <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
+      </div>
+        <h3>Avatar sort son dernier album</h3>
+        <i>Ecrit par Drival le 29/01/2018</i>
+      </div>
+      <div class="lastPost">
+      <div class="imgLastPost">
+        <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
+      </div>
+        <h3>Avatar sort son dernier album</h3>
+        <i>Ecrit par Drival le 29/01/2018</i>
+      </div>
+    </div>
+  </div>
+
+  <div id="forumHome">
+    <div id="titleForumHome">
+      <div id="titleAndClickForum">
+        <div id="clickForum">
+          <p>Cliquez ici pour accéder au forum</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

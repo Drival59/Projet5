@@ -4,54 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}News{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
 
   {% block stylesheets %}
     {# On charge le CSS de bootstrap depuis le site directement #}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   {% endblock %}
 </head>
 
 <body>
-  <div class="container">
-    <div id="header" class="jumbotron">
-      <h1>Ma plateforme d'annonces</h1>
-      <p>
-        Ce projet est propulsé par Symfony,
-        et construit grâce au MOOC OpenClassrooms et SensioLabs.
-      </p>
-      <p>
-        <a class="btn btn-primary btn-lg" href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2">
-          Participer au MOOC »
-        </a>
-      </p>
-    </div>
-
-    <div class="row">
-      <div id="menu" class="col-md-3">
-        <h3>Les annonces</h3>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="">Accueil</a></li>
-          <li><a href="">Ajouter une annonce</a></li>
+  <header>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#lastsNewsCategory">Actualités</a></li>
+          <li><a href="#forumHome">Forum</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </div>
-      <div id="content" class="col-md-9">
-        {% block body %}
-        {% endblock %}
-      </div>
-    </div>
+    </nav>
+  </header>
+  {% block body %}
+  {% endblock %}
 
-    <hr>
 
-    <footer>
-      <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-    </footer>
-  </div>
+
 
   {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   {% endblock %}
 
 </body>

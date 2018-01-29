@@ -1,0 +1,4 @@
+hv_home_homepage:
+    path:     /
+    defaults:
+        _controller: HVHomeBundle:Home:index
