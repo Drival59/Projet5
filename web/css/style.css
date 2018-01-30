@@ -2,6 +2,7 @@ body
 {
   text-align: center;
   background-color: #f4f3f1;
+  font-family: 'Metal Mania', cursive;
 }
 .navbar
 {
@@ -10,87 +11,41 @@ body
   position: fixed;
   width: 100%;
   z-index: 1;
-}
-#metalBanner
-{
-  background: url('../images/metal-banner.jpg') no-repeat center;
-  background-size: cover;
-  height: 970px;
-  position: relative;
-  z-index: 0;
-}
-#lastsNewsCategory
-{
-  padding-top: 75px;
-  padding-bottom: 75px;
-}
-#titleBanner, #titleForumHome
-{
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-}
-#lastsNews
-{
-  display: flex;
-  justify-content: space-around;
-  margin: auto;
-  max-width: 1400px;
-}
-.lastPost
-{
-  border-radius: 5px;
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  min-height: 400px;
-}
-.imgLastPost
-{
-  width: 75%;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: auto;
-  transition-property: width;
-  transition-duration: 0.5s;
-}
-.imgLastPost:hover
-{
-  width: 100%;
-}
-#forumHome
-{
-  height: 920px;
-  background: url('../images/metal-forum.jpg') no-repeat center;
-  background-size: cover;
-}
-#clickForum
-{
-  height: 250px;
-  width: 250px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(244,243,241,0.3);
-  color: #f4f3f1;
-  transition-property: height, width, background, color;
-  transition-duration: 0.5s;
   font-size: 2em;
-  padding: 10px;
 }
-#clickForum:hover
+.navbar-header
 {
-  height: 325px;
-  width: 325px;
-  background: rgba(244,243,241,1);
-  color: black;
+  padding-left: 30px;
 }
-#clickForum p
+.navbar-brand
 {
-  max-width: 220px;
+  font-size: 1.5em;
+}
+.nav
+{
+  float: right;
+  margin-right: 30px;
+}
+
+#footer-metal
+{
+  background-color: #222222;
+  color: #f4f3f1;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+#social-media
+{
+  display: flex;
+}
+#social-media i
+{
+  margin: 15px;
+}
+#footer-metal p
+{
+  font-size: 1.5em;
 }

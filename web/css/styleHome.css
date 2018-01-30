@@ -1,0 +1,116 @@
+#metalBanner
+{
+  background: url('../images/metal-banner.jpg') no-repeat center;
+  background-size: cover;
+  height: 970px;
+  position: relative;
+  z-index: 0;
+}
+#titleBanner, #titleForumHome
+{
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+#titleBanner h1
+{
+  font-size: 10em;
+}
+#titleBanner p
+{
+  font-size: 3em;
+}
+#lastsNewsCategory
+{
+  height: 970px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#lastsNewsCategory h2
+{
+  font-size: 5em;
+}
+#lastsNews
+{
+  display: flex;
+  justify-content: space-around;
+}
+.lastPost
+{
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  padding: 100px;
+  margin-bottom: 20px;
+}
+.imgLastPost
+{
+  width: 75%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+  transition-property: width;
+  transition-duration: 0.5s;
+}
+.imgLastPost:hover
+{
+  width: 100%;
+}
+#moreNews
+{
+  background-color: #222222;
+  color: white;
+  font-size: 1.5em;
+  transition-property: font-size, margin-top;
+  transition-duration: 0.5s;
+}
+#moreNews:hover
+{
+  font-size: 2em;
+  margin-top: -10px;
+}
+#forumHome
+{
+  height: 970px;
+  background: url('../images/metal-forum.jpg') no-repeat center;
+  background-size: cover;
+}
+#clickForum
+{
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(244,243,241,0.3);
+  color: #f4f3f1;
+  transition-property: height, width, background, color;
+  transition-duration: 0.5s;
+  font-size: 2em;
+}
+#clickForum:hover
+{
+  height: 325px;
+  width: 325px;
+  background: rgba(244,243,241,1);
+  color: black;
+}
+#clickForum p
+{
+  max-width: 220px;
+}
+#contact
+{
+  height: 970px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

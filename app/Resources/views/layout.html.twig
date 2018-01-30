@@ -7,10 +7,13 @@
   <title>{% block title %}{% endblock %}</title>
 
   {% block stylesheets %}
-    {# On charge le CSS de bootstrap depuis le site directement #}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   {% endblock %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Metal+Mania" rel="stylesheet">
+
+  <script src="https://use.fontawesome.com/60c1fbb8a8.js"></script>
+
 </head>
 
 <body>
@@ -18,13 +21,14 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">WebSiteName</a>
+          <a class="navbar-brand" href="{{ path('hv_home_homepage') }}">WebSiteName</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="#">Accueil</a></li>
-          <li><a href="#lastsNewsCategory">Actualités</a></li>
-          <li><a href="#forumHome">Forum</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#" id="homeScroll">Accueil</a></li>
+          <li><a href="#" id="newsScroll">Actualités</a></li>
+          <li><a href="#" id="forumScroll">Forum</a></li>
+          <li><a href="#" id="contactScroll">Contact</a></li>
+          <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true" style="font-size:0.8em"></i></li></a>
         </ul>
       </div>
     </nav>
@@ -32,6 +36,17 @@
   {% block body %}
   {% endblock %}
 
+  <footer id="footer-metal">
+    <h3>Rejoignez-nous sur</h3>
+    <div id="social-media">
+      <i class="fa fa-facebook-square fa-4x" aria-hidden="true"></i>
+      <i class="fa fa-twitter-square fa-4x" aria-hidden="true"></i>
+      <i class="fa fa-youtube-square fa-4x" aria-hidden="true"></i>
+      <i class="fa fa-google-plus-square fa-4x" aria-hidden="true"></i>
+      <i class="fa fa-soundcloud fa-4x" aria-hidden="true"></i>
+    </div>
+    <p>Hanard Valentin <i class="fa fa-copyright" aria-hidden="true"></i> 2018</p>
+  </footer>
 
 
 

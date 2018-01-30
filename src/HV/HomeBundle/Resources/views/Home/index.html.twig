@@ -4,6 +4,10 @@
   WebSiteName
 {% endblock %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/styleHome.css') }}">
+{% endblock %}
+
 {% block body %}
   <div id="metalBanner">
     <div id="titleBanner">
@@ -37,6 +41,7 @@
         <i>Ecrit par Drival le 29/01/2018</i>
       </div>
     </div>
+    <a href="{{ path('hv_news_listnews') }}"><button class="btn btn-lg" id="moreNews">Voir plus d'actualités</button></a>
   </div>
 
   <div id="forumHome">
@@ -48,4 +53,14 @@
       </div>
     </div>
   </div>
+
+  <div id="contact">
+    <h2>Contactez-nous</h2>
+    <h2>ICI UN FORMULAIRE</h2>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/scrollHomePage.js') }}"></script>
 {% endblock %}

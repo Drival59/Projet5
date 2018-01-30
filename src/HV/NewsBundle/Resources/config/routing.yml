@@ -1,4 +1,4 @@
-hv_news_homepage:
+hv_news_listnews:
     path: /
     defaults:
         _controller: HVNewsBundle:News:index
