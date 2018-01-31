@@ -51,22 +51,13 @@
   </div>
 
   <div id="containerNews">
-
+    {% for news in listNews %}
       <div class="news">
-        <a href="#">
-          <p class="titleNews">Avatar sort son dernier album</p>
-          <i>Ecrit par Valentin.H le 31/01/2018<i>
+        <a href="{{ path('hv_news_currentevents', {'id': news.id}) }}">
+          <p class="titleNews">{{ news.title }}</p>
+          <i>Ecrit par {{ news.author }} le {{ news.dateNews|date('d/m/Y') }}<i>
         </a>
       </div>
-
-    <div class="news">
-      <p class="titleNews">Avatar sort son dernier album</p>
-      <i>Ecrit par Valentin.H le 31/01/2018<i>
-    </div>
-    <div class="news">
-      <p class="titleNews">Avatar sort son dernier album</p>
-      <p><i>Ecrit par Valentin.H le 31/01/2018<i></p>
-    </div>
+    {% endfor %}
   </div>
-
 {% endblock %}

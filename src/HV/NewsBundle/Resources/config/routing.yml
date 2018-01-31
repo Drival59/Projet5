@@ -4,8 +4,8 @@ hv_news_listnews:
         _controller: HVNewsBundle:News:index
 
 hv_news_currentevents:
-    path: /view/{url}
+    path: /view/{id}
     defaults:
         _controller: HVNewsBundle:News:viewCurrentEvents
     requirements:
-        id: \/d/
+        id: \d+
