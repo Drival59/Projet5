@@ -4,15 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}WebSiteName{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
 
+  {% block stylesheets %}
+  {% endblock %}
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Metal+Mania" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  {% block stylesheets %}
-  {% endblock %}
-
 
   <script src="https://use.fontawesome.com/60c1fbb8a8.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -25,13 +23,13 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{{ path('hv_home_homepage') }}">WebSiteName</a>
+          <a class="navbar-brand" id="titleWebSite" href="{{ path('hv_home_homepage') }}">WebSiteName</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="{{ path('hv_home_homepage') }}">Accueil</a></li>
-          <li><a href="{{ path('hv_news_listnews') }}">Actualités</a></li>
-          <li><a href="#">Forum</a></li>
-          <li><a href="{{ path('hv_home_homepage') }}#contact">Contact</a></li>
+          <li><a href="#" id="homeScroll">Accueil</a></li>
+          <li><a href="#" id="newsScroll">Actualités</a></li>
+          <li><a href="#" id="forumScroll">Forum</a></li>
+          <li><a href="#" id="contactScroll">Contact</a></li>
           <li><a href="#" id="login" data-toggle="modal" data-target="#modalConnection"><i class="fa fa-sign-in" aria-hidden="true" style="font-size:0.8em"></i></li></a>
         </ul>
       </div>

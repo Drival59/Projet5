@@ -6,6 +6,8 @@ var homeSectionElt = document.getElementById('metalBanner');
 var newsSectionElt = document.getElementById('lastsNewsCategory');
 var forumSectionElt = document.getElementById('forumHome');
 var contactSectionElt = document.getElementById('contact');
+var loginIconElt = document.getElementById('login');
+var navbarElt = document.getElementsByClassName('navbar');
 
 function scroll(section) {
   window.scrollTo({
@@ -15,7 +17,7 @@ function scroll(section) {
     'top': section.offsetTop
   });
 }
-
+console.log(navbarElt.length);
 homeElt.addEventListener('click', function (e) {
   e.preventDefault();
   scroll(homeSectionElt);
@@ -34,4 +36,8 @@ forumElt.addEventListener('click', function (e) {
 contactElt.addEventListener('click', function (e) {
   e.preventDefault();
   scroll(contactSectionElt);
+})
+
+loginIconElt.addEventListener('click', function () {
+  
 })

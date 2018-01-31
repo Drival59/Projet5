@@ -2,6 +2,14 @@ body
 {
   text-align: center;
   background-color: #f4f3f1;
+  font-family: 'Open Sans', sans-serif;
+}
+input
+{
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, h5, h6
+{
   font-family: 'Metal Mania', cursive;
 }
 .navbar
@@ -12,6 +20,7 @@ body
   width: 100%;
   z-index: 1;
   font-size: 2em;
+  font-family: 'Metal Mania', cursive;
 }
 .navbar-header
 {
@@ -36,6 +45,7 @@ body
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Metal Mania', cursive;
 }
 #social-media
 {
@@ -44,6 +54,7 @@ body
 #social-media i
 {
   margin: 15px;
+  cursor: pointer;
 }
 #footer-metal p
 {

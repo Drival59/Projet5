@@ -12,4 +12,9 @@ class NewsController extends Controller
     {
       return $this->render('@HVNews/News/index.html.twig');
     }
+
+    public function viewCurrentEventsAction($url)
+    {
+      return $this->render('@HVNews/News/viewCurrentEvents.html.twig', array('id' => $url));
+    }
 }

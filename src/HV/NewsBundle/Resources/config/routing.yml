@@ -2,3 +2,10 @@ hv_news_listnews:
     path: /
     defaults:
         _controller: HVNewsBundle:News:index
+
+hv_news_currentevents:
+    path: /view/{url}
+    defaults:
+        _controller: HVNewsBundle:News:viewCurrentEvents
+    requirements:
+        id: \/d/

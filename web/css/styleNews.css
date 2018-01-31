@@ -1,0 +1,94 @@
+.navbar
+{
+  position: static;
+  z-index: 0;
+}
+#newsBanner
+{
+  background: url('../images/metal-banner-news.jpg') no-repeat center;
+  background-size: cover;
+  height: 300px;
+  position: relative;
+}
+#titleNewsBanner
+{
+  color: #f4f3f1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  font-size: 3em;
+  font-family: 'Metal Mania', cursive;
+}
+#titleNewsBanner h1
+{
+  font-size: 2.5em;
+}
+#containerMain
+{
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+#carouselNews
+{
+  width: 700px;
+  height: 400px;
+}
+
+#searchNews
+{
+  width: 400px;
+  height: 200px;
+  margin-top: 50px;
+  color: #f4f3f1;
+  background-color: #222222;
+  border-radius: 5px;
+  padding: 20px;
+}
+#searchNewsInput
+{
+  display: flex;
+  color: #222222;
+}
+#containerNews
+{
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+.news
+{
+  color: #f4f3f1;
+  height: 120px;
+  background-color: #222222;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition-property: font-size;
+  transition-duration: 0.5s;
+}
+.news a
+{
+  text-decoration: none;
+  color: #f4f3f1;
+}
+.titleNews
+{
+  color : #c33b3b;
+  font-size: 1.5em;
+}
+.news:hover
+{
+  font-size: 1.5em;
+}
