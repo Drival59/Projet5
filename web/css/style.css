@@ -2,6 +2,7 @@ body
 {
   text-align: center;
   background-color: #f4f3f1;
+  color : #343a40;
   font-family: 'Open Sans', sans-serif;
 }
 input
@@ -14,38 +15,30 @@ h1, h2, h3, h4, h5, h6
 }
 .navbar
 {
-  margin: 0;
-  border-radius: 0;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-  font-size: 2em;
+  font-size: 1.8em;
   font-family: 'Metal Mania', cursive;
 }
-.navbar-header
-{
-  padding-left: 30px;
-}
-.navbar-brand
+#titleWebSite
 {
   font-size: 1.5em;
 }
-.nav
+#navbarSupportedContent
 {
-  float: right;
-  margin-right: 30px;
+  justify-content: flex-end;
 }
+
 
 #footer-metal
 {
-  background-color: #222222;
+  background-color: #343a40;
   color: #f4f3f1;
   height: 200px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   font-family: 'Metal Mania', cursive;
+  padding-top: 20px;
 }
 #social-media
 {

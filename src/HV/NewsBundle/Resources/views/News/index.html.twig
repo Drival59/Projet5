@@ -19,12 +19,12 @@
       <div class="carousel-inner">
         {% for newInCarousel in newsInCarousel %}
           {% if loop.index == 1 %}
-            <div class="item active">
+            <div class="carousel-item active">
           {% else %}
-            <div class="item">
+            <div class="carousel-item">
           {% endif %}
-            <img src="{{ asset('images/' ~ newInCarousel.imageUrl) }}" alt="Images du carousel" width="100%" style="height:400px">
-              <div class="carousel-caption">
+            <img src="{{ asset('images/' ~ newInCarousel.imageUrl) }}" alt="Images du carousel" class="d-block w-100" style="height:400px">
+              <div class="carousel-caption d-none d-md-block">
                 <h3>{{ newInCarousel.title }}</h3>
               </div>
             </div>
@@ -32,12 +32,12 @@
       </div>
 
       <!-- Left and right controls -->
-      <a class="left carousel-control" href="#carouselNews" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
+      <a class="carousel-control-prev" href="#carouselNews" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="right carousel-control" href="#carouselNews" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
+      <a class="carousel-control-next" href="#carouselNews" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
         <span class="sr-only">Next</span>
       </a>
     </div>
@@ -46,7 +46,7 @@
       <h3>Rechercher dans l'actu<h3>
       <div id="searchNewsInput" class="form-group">
         <input type="text" class="form-control" id="usr">
-        <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <button class="btn btn-light"><i class="fa fa-search" aria-hidden="true"></i></button>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: white;
+  color: #f4f3f1;
   font-family: 'Metal Mania', cursive;
 }
 #titleBanner h1
@@ -77,16 +77,15 @@
 }
 #moreNews
 {
-  background-color: #222222;
-  color: white;
   font-size: 1.5em;
+  font-family: 'Metal Mania', cursive;
   transition-property: font-size, margin-top;
-  transition-duration: 0.5s;
+  transition-duration: 0.3s;
 }
 #moreNews:hover
 {
-  font-size: 2em;
-  margin-top: -10px;
+  font-size: 1.8em;
+  margin-top: -7px;
 }
 #forumHome
 {
@@ -113,7 +112,7 @@
   height: 325px;
   width: 325px;
   background: rgba(244,243,241,1);
-  color: black;
+  color: #343a40;
 }
 #clickForum p
 {

@@ -49,14 +49,13 @@
   height: 200px;
   margin-top: 50px;
   color: #f4f3f1;
-  background-color: #222222;
+  background-color: #343a40;
   border-radius: 5px;
   padding: 20px;
 }
 #searchNewsInput
 {
   display: flex;
-  color: #222222;
 }
 #containerNews
 {
@@ -68,7 +67,7 @@
 {
   color: #f4f3f1;
   height: 130px;
-  background-color: #222222;
+  background-color: #343a40;
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -90,7 +89,7 @@
 }
 .news:hover
 {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 #containerCurrentEvent
 {
