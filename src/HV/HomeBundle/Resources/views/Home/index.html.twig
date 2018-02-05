@@ -19,27 +19,15 @@
   <div id="lastsNewsCategory">
     <h2>Dernieres actualités</h2>
     <div id="lastsNews">
-      <div class="lastPost">
-        <div class="imgLastPost">
-          <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
+      {% for news in lastNews %}
+        <div class="lastPost">
+          <div class="imgLastPost">
+            <a href="{{ path('hv_news_currentevents', {'id': news.id}) }}"><img src="{{ asset('images/' ~ news.imageUrl) }}" alt="images dernieres news" width="100%" height="100%">
+          </div>
+          <h3><a href="{{ path('hv_news_currentevents', {'id': news.id}) }}"> {{ news.title }} </a></h3>
+          <i>Ecrit par {{ news.author }} le {{ news.dateNews|date('d/m/Y') }}</i>
         </div>
-        <h3>Avatar sort son dernier album</h3>
-        <i>Ecrit par Drival le 29/01/2018</i>
-      </div>
-      <div class="lastPost">
-      <div class="imgLastPost">
-        <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
-      </div>
-        <h3>Avatar sort son dernier album</h3>
-        <i>Ecrit par Drival le 29/01/2018</i>
-      </div>
-      <div class="lastPost">
-      <div class="imgLastPost">
-        <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="images dernieres news" width="100%">
-      </div>
-        <h3>Avatar sort son dernier album</h3>
-        <i>Ecrit par Drival le 29/01/2018</i>
-      </div>
+      {% endfor %}
     </div>
     <a href="{{ path('hv_news_listnews') }}"><button class="btn btn-lg" id="moreNews">Voir plus d'actualités</button></a>
   </div>

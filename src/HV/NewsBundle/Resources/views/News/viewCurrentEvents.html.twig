@@ -1,6 +1,15 @@
 {% extends "@HVNews/layout.html.twig" %}
 
 {% block hvnews_body %}
-  {{ news.id }}
-  {{ news.title }}
+  <div id="containerCurrentEvent">
+    <div id="imageCurrentEvent">
+      <img src="{{ asset('images/' ~ news.imageUrl) }}" alt="lol" width="100%" height="680px"/>
+    </div>
+    <h3>{{ news.title }}</h3>
+    <i>Ecrit par {{ news.author }} le {{ news.dateNews|date('d/m/Y à H:m') }}</i>
+    <br /><br />
+    <p>{{ news.content }}</p>
+
+
+  </div>
 {% endblock %}

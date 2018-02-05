@@ -16,13 +16,13 @@ class NewsController extends Controller
         ->getManager()
         ->getRepository('HVNewsBundle:News')
       ;
-      $listNews = $repository->findAll();
-      return $this->render('@HVNews/News/index.html.twig', array('listNews' => $listNews));
+      $listNews = $repository->myfindAll();
+      $newsInCarousel = $repository->getNewsCarousel();
+      return $this->render('@HVNews/News/index.html.twig', array('listNews' => $listNews, 'newsInCarousel' => $newsInCarousel));
     }
 
     public function viewCurrentEventsAction($id)
     {
-      // On récupère le repository
       $repository = $this->getDoctrine()
         ->getManager()
         ->getRepository('HVNewsBundle:News')

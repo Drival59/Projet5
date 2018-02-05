@@ -67,7 +67,7 @@
 .news
 {
   color: #f4f3f1;
-  height: 120px;
+  height: 130px;
   background-color: #222222;
   border-radius: 5px;
   margin-top: 20px;
@@ -91,4 +91,16 @@
 .news:hover
 {
   font-size: 1.5em;
+}
+#containerCurrentEvent
+{
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 50px;
+}
+#imageCurrentEvent
+{
+  max-width: 1200px;
+  max-height: 680px;
+  margin: auto;
 }

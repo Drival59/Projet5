@@ -54,6 +54,12 @@ class News
      */
     private $inCarousel = false;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_url", type="string", length=255)
+     */
+    private $imageUrl;
 
     public function __construct()
     {
@@ -189,5 +195,29 @@ class News
     public function getInCarousel()
     {
         return $this->inCarousel;
+    }
+
+    /**
+     * Set imageUrl
+     *
+     * @param string $imageUrl
+     *
+     * @return News
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageUrl
+     *
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
     }
 }

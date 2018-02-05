@@ -47,21 +47,33 @@
   display: flex;
   flex-direction: column;
   min-height: 600px;
+  min-width: 500px;
   padding: 100px;
   margin-bottom: 20px;
 }
+.lastPost a
+{
+  color: inherit;
+}
+.lastPost a:hover
+{
+  text-decoration: none;
+  color: inherit;
+}
 .imgLastPost
 {
-  width: 75%;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   overflow: hidden;
   margin: auto;
-  transition-property: width;
+  transition-property: width, height;
   transition-duration: 0.5s;
 }
 .imgLastPost:hover
 {
-  width: 100%;
+  width: 300px;
+  height: 300px;
 }
 #moreNews
 {

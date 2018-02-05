@@ -2,6 +2,7 @@
 
 namespace HV\NewsBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 /**
  * NewsRepository
  *
@@ -10,4 +11,33 @@ namespace HV\NewsBundle\Repository;
  */
 class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getLastNews($limit)
+  {
+    $qb = $this->createQueryBuilder('n');
+    $qb->orderBy('n.dateNews', 'DESC');
+    $qb->setMaxResults($limit);
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
+  public function myFindAll()
+  {
+    $qb = $this->createQueryBuilder('n');
+    $qb->orderBy('n.dateNews', 'DESC');
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
+  public function getNewsCarousel()
+  {
+    $qb = $this->createQueryBuilder('n');
+    $qb->where('n.inCarousel = 1');
+    $qb->orderBy('n.dateNews', 'DESC');
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 }
