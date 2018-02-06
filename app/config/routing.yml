@@ -1,3 +1,7 @@
+hv_users:
+    resource: "@HVUsersBundle/Resources/config/routing.yml"
+    prefix:   /users
+
 hv_home:
     resource: "@HVHomeBundle/Resources/config/routing.yml"
     prefix:   /

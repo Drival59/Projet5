@@ -68,7 +68,7 @@
   overflow: hidden;
   margin: auto;
   transition-property: width, height;
-  transition-duration: 0.5s;
+  transition-duration: 0.3s;
 }
 .imgLastPost:hover
 {
@@ -80,12 +80,12 @@
   font-size: 1.5em;
   font-family: 'Metal Mania', cursive;
   transition-property: font-size, margin-top;
-  transition-duration: 0.3s;
+  transition-duration: 0.1s;
 }
 #moreNews:hover
 {
-  font-size: 1.8em;
-  margin-top: -7px;
+  font-size: 1.7em;
+  margin-top: -4px;
 }
 #forumHome
 {
@@ -104,7 +104,7 @@
   background: rgba(244,243,241,0.3);
   color: #f4f3f1;
   transition-property: height, width, background, color;
-  transition-duration: 0.5s;
+  transition-duration: 0.3s;
   font-size: 2em;
 }
 #clickForum:hover

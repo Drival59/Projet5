@@ -25,7 +25,7 @@
           {% endif %}
             <img src="{{ asset('images/' ~ newInCarousel.imageUrl) }}" alt="Images du carousel" class="d-block w-100" style="height:400px">
               <div class="carousel-caption d-none d-md-block">
-                <h3>{{ newInCarousel.title }}</h3>
+                <h3><a href="{{ path('hv_news_currentevents', {'id': newInCarousel.id}) }}">{{ newInCarousel.title }}</a></h3>
               </div>
             </div>
         {% endfor %}
@@ -42,11 +42,20 @@
       </a>
     </div>
 
-    <div id="searchNews">
-      <h3>Rechercher dans l'actu<h3>
-      <div id="searchNewsInput" class="form-group">
-        <input type="text" class="form-control" id="usr">
-        <button class="btn btn-light"><i class="fa fa-search" aria-hidden="true"></i></button>
+    <div id="widgets">
+      <div id="search">
+        <h3>Rechercher dans l'actu<h3>
+        <div id="searchNewsInput" class="form-group">
+          <input type="text" class="form-control" id="usr">
+          <button class="btn btn-light"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div id="popularNews">
+        <h3>Les actualités populaires</h3>
+        <p>Avatar a sorti son dernier album</p>
+        <p>Avatar a sorti son dernier album</p>
+        <p>Avatar a sorti son dernier album</p>
+        <p>Avatar a sorti son dernier album</p>
       </div>
     </div>
   </div>
