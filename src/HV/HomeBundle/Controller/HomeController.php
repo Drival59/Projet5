@@ -18,16 +18,14 @@ class HomeController extends Controller
 
       $lastNews = $repository->getRepository('HVNewsBundle:News')->getLastNews(3);
 
-      $users = new Users();
-      $form = $this->createForm(UsersType::class, $users);
+      $form = $this->createForm(UsersType::class, new Users());
 
       if ($request->isMethod('POST')) {
         $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['hv_usersbundle_users']);
         if ($connection != false) {
           $session = new Session();
-          $session->set('Login', $connection->getLogin());
-          $session->set('Right', $connection->getRights());
-          $session->set('Avatar', $connection->getAvatar());
+          $session->set('User', $connection);
+          return $this->redirectToRoute('hv_home_homepage');
         }
       }
       return $this->render('@HVHome/Home/index.html.twig', array(

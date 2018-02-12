@@ -11,12 +11,15 @@
       <br /><br />
       <p>{{ news.content|raw }}</p>
     </div>
+    {% if app.session.get('User') != null %}
+      {{ form(formComments) }}
+    {% endif %}
     <div id="commentsCurrentEvent">
       <h3>Commentaires ({{ comments|length }})</h3>
       {% for comment in comments %}
         <div class="commentCurrentEvent">
           <div class="avatarComment">
-            <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%"/>
+            <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
           </div>
           <div class="commentContent">
             <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>

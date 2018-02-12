@@ -47,7 +47,10 @@ class Comments
      */
     private $dateComment;
 
-
+    public function __construct()
+    {
+      $this->setDateComment();
+    }
     /**
      * Get id
      *
@@ -89,10 +92,9 @@ class Comments
      *
      * @return Comments
      */
-    public function setDateComment($dateComment)
+    public function setDateComment()
     {
-        $this->dateComment = $dateComment;
-
+        $this->dateComment = new \Datetime();
         return $this;
     }
 

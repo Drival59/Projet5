@@ -107,13 +107,12 @@
 }
 #containerCurrentEvent
 {
-  max-width: 1200px;
+  max-width: 800px;
   margin: auto;
   margin-top: 50px;
 }
 #imageCurrentEvent
 {
-  max-width: 800px;
   max-height: 600px;
   margin: auto;
 }
@@ -129,14 +128,12 @@
 #commentsCurrentEvent h3
 {
   border: 2px solid #343a40;
-  max-width: 800px;
   margin: auto;
   margin-bottom: 30px;
 }
 .commentCurrentEvent
 {
   min-height: 100px;
-  max-width: 800px;
   margin: auto;
   margin-bottom: 30px;
   border: 2px solid #343a40;
@@ -146,17 +143,15 @@
 }
 .avatarComment
 {
-  width: 75px;
+  min-width: 75px;
   height: 75px;
-  border-radius: 5px;
-  overflow: hidden;
   margin-left: 20px;
 }
 .commentContent
 {
+  margin-left: 20px;
+  margin-right: 20px;
   text-align: left;
-  margin-left:20px;
-  font-size: 0.9em;
 }
 .commentContent p
 {
