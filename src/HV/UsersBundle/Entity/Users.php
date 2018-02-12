@@ -59,6 +59,7 @@ class Users
     public function __construct()
     {
       $this->setAvatar("defaults_avatar_059_metal.jpg");
+      $this->setRights(0);
     }
     /**
      * Get id
