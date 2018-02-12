@@ -63,6 +63,14 @@
 {
   display: flex;
 }
+#popularNews a
+{
+  color: #f4f3f1;
+}
+#popularNews a:hover
+{
+  text-decoration: none;
+}
 #containerNews
 {
   max-width: 1200px;

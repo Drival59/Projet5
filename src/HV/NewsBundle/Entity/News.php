@@ -29,11 +29,10 @@ class News
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="HV\UsersBundle\Entity\Users")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $author;
+    private $users;
 
     /**
      * @var string
@@ -60,6 +59,13 @@ class News
      * @ORM\Column(name="image_url", type="string", length=255)
      */
     private $imageUrl;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
 
     public function __construct()
     {
@@ -99,30 +105,6 @@ class News
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return News
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 
     /**
@@ -219,5 +201,53 @@ class News
     public function getImageUrl()
     {
         return $this->imageUrl;
+    }
+
+    /**
+     * Set users
+     *
+     * @param \HV\UsersBundle\Entity\Users $users
+     *
+     * @return News
+     */
+    public function setUsers(\HV\UsersBundle\Entity\Users $users)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * Get users
+     *
+     * @return \HV\UsersBundle\Entity\Users
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     *
+     * @return News
+     */
+    public function setViews()
+    {
+        $views = $this->getViews();
+        $this->views = $views + 1;
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }

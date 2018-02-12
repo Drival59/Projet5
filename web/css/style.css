@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6
 {
   font-size: 1.8em;
   font-family: 'Metal Mania', cursive;
+  background-color: #23272b;
 }
 #titleWebSite
 {
@@ -26,9 +27,13 @@ h1, h2, h3, h4, h5, h6
 {
   justify-content: flex-end;
 }
+#login
+{
+  color : #343a40;
+}
 #footer-metal
 {
-  background-color: #343a40;
+  background-color: #23272b;
   color: #f4f3f1;
   height: 200px;
   display: flex;

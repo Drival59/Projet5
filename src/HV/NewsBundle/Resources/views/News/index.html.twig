@@ -52,10 +52,9 @@
       </div>
       <div id="popularNews">
         <h3>Les actualités populaires</h3>
-        <p>Avatar a sorti son dernier album</p>
-        <p>Avatar a sorti son dernier album</p>
-        <p>Avatar a sorti son dernier album</p>
-        <p>Avatar a sorti son dernier album</p>
+        {% for popularNew in popularNews %}
+          <p><a href="{{path('hv_news_currentevents', {'id' : popularNew.id }) }}">{{ popularNew.title }}</a></p>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -66,7 +65,7 @@
       <div class="news">
         <a href="{{ path('hv_news_currentevents', {'id': news.id}) }}">
           <p class="titleNews">{{ news.title }}</p>
-          <i>Ecrit par {{ news.author }} le {{ news.dateNews|date('d/m/Y') }}<i>
+          <i>Ecrit par {{ news.users.login }} le {{ news.dateNews|date('d/m/Y') }}<i>
         </a>
       </div>
     {% endfor %}

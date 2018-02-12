@@ -7,7 +7,7 @@
     </div>
     <div id="newContentCurrentEvent">
       <h3>{{ news.title }}</h3>
-      <i>Ecrit par {{ news.author }} le {{ news.dateNews|date('d/m/Y à H:m') }}</i>
+      <i>Ecrit par {{ news.users.login }} le {{ news.dateNews|date('d/m/Y à H:m') }}</i>
       <br /><br />
       <p>{{ news.content|raw }}</p>
     </div>
@@ -16,15 +16,14 @@
       {% for comment in comments %}
         <div class="commentCurrentEvent">
           <div class="avatarComment">
-            <img src="{{ asset('images/avatar-country-album.jpg') }}" alt="avatar" width="100%"/>
+            <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%"/>
           </div>
           <div class="commentContent">
-            <i>{{ comment.users.pseudo }} à ecrit ce commentaire le {{ comment.dateComment|date('d/m/Y à H:i') }} :</i>
+            <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
             <p>{{ comment.content }}</p>
           </div>
         </div>
       {% endfor %}
     </div>
-
   </div>
 {% endblock %}

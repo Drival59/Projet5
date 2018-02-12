@@ -40,4 +40,14 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
       ->getResult()
     ;
   }
+  public function getPopularNews()
+  {
+    $qb = $this->createQueryBuilder('n');
+    $qb->orderBy('n.views', 'DESC');
+    $qb->setMaxResults(4);
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 }

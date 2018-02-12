@@ -10,4 +10,24 @@ namespace HV\UsersBundle\Repository;
  */
 class UsersRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getConnection(array $postConnection)
+  {
+    $email = $postConnection['email'];
+    $password = $postConnection['password'];
+
+    $users = $this->findOneBy(array(
+      'email' => $email
+    ));
+
+    if ($users != null) {
+      $passHash = $users->getPassword();
+      if (password_verify($password, $passHash)) {
+        $connection = $users;
+      } else {
+        $connection = false;
+      }
+      return $connection;
+    }
+    return false;
+  }
 }

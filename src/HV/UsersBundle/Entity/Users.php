@@ -24,9 +24,9 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=255)
+     * @ORM\Column(name="login", type="string", length=255)
      */
-    private $pseudo;
+    private $login;
 
     /**
      * @var string
@@ -49,6 +49,12 @@ class Users
      */
     private $rights;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
 
     /**
      * Get id
@@ -58,30 +64,6 @@ class Users
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pseudo
-     *
-     * @param string $pseudo
-     *
-     * @return Users
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    /**
-     * Get pseudo
-     *
-     * @return string
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
     }
 
     /**
@@ -155,5 +137,52 @@ class Users
     {
         return $this->rights;
     }
-}
 
+    /**
+     * Set login
+     *
+     * @param string $login
+     *
+     * @return Users
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Users
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+}
