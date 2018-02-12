@@ -25,8 +25,8 @@ class HomeController extends Controller
         if ($connection != false) {
           $session = new Session();
           $session->set('User', $connection);
-          return $this->redirectToRoute('hv_home_homepage');
         }
+        return $this->redirectToRoute('hv_home_homepage');
       }
       return $this->render('@HVHome/Home/index.html.twig', array(
         'lastNews' => $lastNews,

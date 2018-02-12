@@ -16,16 +16,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class NewsController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-      $repository = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('HVNewsBundle:News')
-      ;
-      $listNews = $repository->myfindAll();
-      $newsInCarousel = $repository->getNewsCarousel();
-      $popularNews = $repository->getPopularNews();
+      $repository = $this->getDoctrine()->getManager();
 
+      $listNews = $repository->getRepository('HVNewsBundle:News')->myfindAll();
+      $newsInCarousel = $repository->getRepository('HVNewsBundle:News')->getNewsCarousel();
+      $popularNews = $repository->getRepository('HVNewsBundle:News')->getPopularNews();
+      
       $formUsers = $this->createForm(UsersType::class, new Users());
 
       if ($request->isMethod('POST')) {
@@ -38,7 +36,6 @@ class NewsController extends Controller
           return $this->redirectToRoute('hv_news_listnews');
         }
       }
-
       return $this->render('@HVNews/News/index.html.twig', array(
         'listNews' => $listNews,
         'newsInCarousel' => $newsInCarousel,
@@ -84,7 +81,7 @@ class NewsController extends Controller
             'id' => $id));
         }
       }
-      
+
       return $this->render('@HVNews/News/viewCurrentEvents.html.twig', array(
         'news' => $news,
         'comments' => $comments,

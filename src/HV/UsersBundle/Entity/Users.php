@@ -56,6 +56,10 @@ class Users
      */
     private $email;
 
+    public function __construct()
+    {
+      $this->setAvatar("defaults_avatar_059_metal.jpg");
+    }
     /**
      * Get id
      *
