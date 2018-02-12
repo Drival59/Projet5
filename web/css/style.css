@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6
 {
   justify-content: flex-end;
 }
-#login
+#login, #registration
 {
   color : #343a40;
 }
@@ -46,11 +46,9 @@ h1, h2, h3, h4, h5, h6
 #social-media
 {
   display: flex;
-}
-#social-media i
-{
-  margin: 15px;
-  cursor: pointer;
+  min-width: 400px;
+  justify-content: space-around;
+  margin: 20px;
 }
 #footer-metal p
 {

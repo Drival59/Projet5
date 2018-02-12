@@ -42,7 +42,8 @@
                 Espace Membres
               </a>
               <div class="dropdown-menu">
-                <a class="nav-link" href="#" id="login" data-toggle="modal" data-target="#modalConnection"><i class="fa fa-sign-in" aria-hidden="true"></i> Connexion</a>
+                <a class="nav-link" href="#" id="login" data-toggle="modal" data-target="#modalConnection"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                <a class="nav-link" href="{{ path('hv_users_registration') }}" id="registration"><i class="fas fa-user-plus"></i> Inscription</a>
               </div>
             {% endif %}
           </li>
@@ -72,7 +73,7 @@
             </button>
           </div>
           <div class="modal-body">
-            {{ form(form) }}
+            {{ form(formUsers) }}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,17 +90,17 @@
   <footer id="footer-metal">
     <h3>Rejoignez-nous sur</h3>
     <div id="social-media">
-      <i class="fa fa-facebook-square fa-4x" aria-hidden="true"></i>
-      <i class="fa fa-twitter-square fa-4x" aria-hidden="true"></i>
-      <i class="fa fa-youtube-square fa-4x" aria-hidden="true"></i>
-      <i class="fa fa-google-plus-square fa-4x" aria-hidden="true"></i>
-      <i class="fa fa-soundcloud fa-4x" aria-hidden="true"></i>
+      <i class="fab fa-facebook-square fa-4x"></i>
+      <i class="fab fa-twitter-square fa-4x"></i>
+      <i class="fab fa-youtube-square fa-4x"></i>
+      <i class="fab fa-google-plus-square fa-4x"></i>
+      <i class="fab fa-soundcloud fa-4x"></i>
     </div>
     <p>Hanard Valentin <i class="fa fa-copyright" aria-hidden="true"></i> 2018</p>
   </footer>
 
 
-  <script src="https://use.fontawesome.com/60c1fbb8a8.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

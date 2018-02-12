@@ -18,7 +18,7 @@ class HomeController extends Controller
 
       $lastNews = $repository->getRepository('HVNewsBundle:News')->getLastNews(3);
 
-      $form = $this->createForm(UsersType::class, new Users());
+      $formUsers = $this->createForm(UsersType::class, new Users());
 
       if ($request->isMethod('POST')) {
         $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['hv_usersbundle_users']);
@@ -30,7 +30,7 @@ class HomeController extends Controller
       }
       return $this->render('@HVHome/Home/index.html.twig', array(
         'lastNews' => $lastNews,
-        'form' => $form->createView(),
+        'formUsers' => $formUsers->createView(),
       ));
     }
 }

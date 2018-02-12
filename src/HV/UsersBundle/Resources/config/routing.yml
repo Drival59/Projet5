@@ -1,3 +1,8 @@
+hv_users_registration:
+    path:     /registration
+    defaults:
+      _controller: HVUsersBundle:Users:registration
+      
 hv_users_logout:
     path:     /logout
     defaults:
