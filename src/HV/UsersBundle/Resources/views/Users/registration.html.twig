@@ -1,5 +1,45 @@
 {% extends "@HVUsers/layout.html.twig" %}
 
 {% block hvusers_body %}
-  {{ form(formRegistration) }}
+  <div id="registrationForm">
+    {{ form_start(formUsers) }}
+
+    {{ form_errors(formUsers) }}
+
+    <div class="form-group">
+      {{ form_label(formUsers.login) }}
+      {{ form_widget(formUsers.login) }}
+      {{ form_errors(formUsers.login) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(formUsers.password) }}
+      {{ form_widget(formUsers.password) }}
+      {{ form_errors(formUsers.password) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(formUsers.confirmPassword) }}
+      {{ form_widget(formUsers.confirmPassword) }}
+      {{ form_errors(formUsers.confirmPassword) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(formUsers.email) }}
+      {{ form_widget(formUsers.email) }}
+      {{ form_errors(formUsers.email) }}
+    </div>
+
+    <div class="form-group">
+      {{ form_label(formUsers.confirmEmail) }}
+      {{ form_widget(formUsers.confirmEmail) }}
+      {{ form_errors(formUsers.confirmEmail) }}
+    </div>
+
+    {{ form_widget(formUsers.save) }}
+
+    {{ form_rest(formUsers) }}
+    {{ form_end(formUsers) }}
+  </div>
+
 {% endblock %}

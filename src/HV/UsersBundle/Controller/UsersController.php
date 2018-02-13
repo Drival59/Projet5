@@ -18,21 +18,23 @@ class UsersController extends Controller
     $repository = $this->getDoctrine()->getManager();
 
     $formUsers = $this->createForm(UsersType::class, new Users());
-    $formRegistration = $this->createForm(RegistrationType::class, new Users());
 
-    if ($request->isMethod('POST')) {
+    if ($formUsers->handleRequest($request)->isValid()) {
       $newUser = new Users();
-      $newUser->setLogin($_POST['hv_usersbundle_registration']['login']);
-      $newUser->setPassword(password_hash($_POST['hv_usersbundle_registration']['password'], PASSWORD_DEFAULT));
-      $newUser->setEmail($_POST['hv_usersbundle_registration']['email']);
+      $newUser->setLogin($_POST['hv_usersbundle_users']['login']);
+      $newUser->setPassword(password_hash($_POST['hv_usersbundle_users']['password'], PASSWORD_DEFAULT));
+      $newUser->setEmail($_POST['hv_usersbundle_users']['email']);
       $repository->persist($newUser);
       $repository->flush();
       return $this->redirectToRoute('hv_home_homepage');
     }
     return $this->render('@HVUsers/Users/registration.html.twig', array(
-      'formUsers' => $formUsers->createView(),
-      'formRegistration' =>$formRegistration->createView(),
+      'formUsers' =>$formUsers->createView(),
     ));
+  }
+  public function editAction($login)
+  {
+    return $this->render('@HVUsers/Users/edit.html.twig');
   }
   public function logoutAction()
   {

@@ -2,8 +2,13 @@ hv_users_registration:
     path:     /registration
     defaults:
       _controller: HVUsersBundle:Users:registration
-      
+
 hv_users_logout:
     path:     /logout
     defaults:
       _controller: HVUsersBundle:Users:logout
+
+hv_users_edit:
+    path:     /edit/{login}
+    defaults:
+      _controller: HVUsersBundle:Users:edit

@@ -32,7 +32,7 @@
                 {{ app.session.get('User').login }}
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"><img src="{{ asset('images/avatars/' ~ app.session.get('User').avatar) }}" alt="avatar profil" width="30px" /> Modifier profil</a>
+                <a class="dropdown-item" href="{{ path('hv_users_edit', {'login' : app.session.get('User').login}) }}"><img src="{{ asset('images/avatars/' ~ app.session.get('User').avatar) }}" alt="avatar profil" width="30px" /> Modifier profil</a>
                 <a class="dropdown-item" href="{{ path('hv_users_logout') }}"><i class="fas fa-sign-out-alt"></i></i> Deconnexion</a>
               </div>
             {% else %}
@@ -71,7 +71,7 @@
             </button>
           </div>
           <div class="modal-body">
-            {{ form(formUsers) }}
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

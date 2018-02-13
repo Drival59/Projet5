@@ -3,12 +3,15 @@
 namespace HV\UsersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Users
  *
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="HV\UsersBundle\Repository\UsersRepository")
+ * @UniqueEntity(fields="email", message="Cette adresse mail est déjà associé à un compte.")
+ * @UniqueEntity(fields="login", message="Ce pseudo est déjà utilisé par un autre utilisateur.")
  */
 class Users
 {
@@ -25,15 +28,25 @@ class Users
      * @var string
      *
      * @ORM\Column(name="login", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, unique=true)
+     * @Assert\Length(min=8, minMessage="Le mot de passe doit faire au moins {{ limit }} caractères.")
+     * @Assert\IdenticalTo(propertyPath="confirmPassword", message="Le mot de passe et sa confirmation ne sont pas identiques.")
      */
     private $password;
+
+    /**
+     * @var string
+     * @Assert\Length(min=8, minMessage="Le mot de passe doit faire au moins {{ limit }} caractères.")
+     * @Assert\IdenticalTo(propertyPath="password", message="Le mot de passe et sa confirmation ne sont pas identiques.")
+     */
+    private $confirmPassword;
 
     /**
      * @var string
@@ -52,9 +65,16 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\IdenticalTo(propertyPath="confirmEmail", message="L'adresse email et sa confirmation ne sont pas identiques.")
      */
     private $email;
+
+    /**
+     * @var string
+     * @Assert\IdenticalTo(propertyPath="email", message="L'adresse email et sa confirmation ne sont pas identiques.")
+     */
+    private $confirmEmail;
 
     public function __construct()
     {
@@ -189,5 +209,51 @@ class Users
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set confirmPassword
+     *
+     * @param string $confirmPassword
+     *
+     * @return Users
+     */
+    public function setConfirmPassword($confirmPassword)
+    {
+        $this->confirmPassword = $confirmPassword;
+        return $this;
+    }
+
+    /**
+     * Get confirmPassword
+     *
+     * @return string
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * Set confirmEmail
+     *
+     * @param string $confirmEmail
+     *
+     * @return Users
+     */
+    public function setConfirmEmail($confirmEmail)
+    {
+        $this->confirmEmail = $confirmEmail;
+        return $this;
+    }
+
+    /**
+     * Get confirmEmail
+     *
+     * @return string
+     */
+    public function getConfirmEmail()
+    {
+        return $this->confirmEmail;
     }
 }
