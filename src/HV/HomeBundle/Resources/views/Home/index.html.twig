@@ -50,4 +50,11 @@
 
 {% block javascripts %}
   <script src="{{ asset('js/scrollHomePage.js') }}"></script>
+  {% if errorMessage == 1 %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#modalConnection').modal('show');
+         });
+    </script>
+  {% endif %}
 {% endblock %}
