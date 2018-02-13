@@ -23,16 +23,15 @@ class NewsController extends Controller
       $listNews = $repository->getRepository('HVNewsBundle:News')->myfindAll();
       $newsInCarousel = $repository->getRepository('HVNewsBundle:News')->getNewsCarousel();
       $popularNews = $repository->getRepository('HVNewsBundle:News')->getPopularNews();
-      
-      $formUsers = $this->createForm(UsersType::class, new Users());
 
       if ($request->isMethod('POST')) {
-        if (isset($_POST['hv_usersbundle_users'])) {
-          $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['hv_usersbundle_users']);
-          if ($connection != false) {
-            $session = new Session();
-            $session->set('User', $connection);
-          }
+        $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+        if ($connection != false) {
+          $session = new Session();
+          $session->set('User', $connection);
+          return $this->redirectToRoute('hv_news_listnews');
+        } else {
+          $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
           return $this->redirectToRoute('hv_news_listnews');
         }
       }
@@ -40,7 +39,6 @@ class NewsController extends Controller
         'listNews' => $listNews,
         'newsInCarousel' => $newsInCarousel,
         'popularNews' => $popularNews,
-        'formUsers' => $formUsers->createView(),
       ));
     }
 
@@ -54,7 +52,6 @@ class NewsController extends Controller
       $repository->flush();
       $comments = $repository->getRepository('HVNewsBundle:Comments')->getComments($id);
 
-      $formUsers = $this->createForm(UsersType::class, new Users());
       $formComments = $this->createForm(CommentsType::class, new Comments());
 
       if (null === $news) {
@@ -62,30 +59,34 @@ class NewsController extends Controller
       }
 
       if ($request->isMethod('POST')) {
-        if (isset($_POST['hv_usersbundle_users'])) {
-          $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['hv_usersbundle_users']);
-          if ($connection != false) {
-            $session = new Session();
-            $session->set('User', $connection);
-          }
-          return $this->redirectToRoute('hv_news_currentevents', array(
-            'id' => $id));
-        } else {
+        if (isset($_POST['hv_newsbundle_comments'])) {
           $newComment = new Comments();
           $newComment->setNews($news);
           $newComment->setUsers($session->get('User'));
           $newComment->setContent($_POST['hv_newsbundle_comments']['content']);
           $repository->merge($newComment);
           $repository->flush();
+          $this->addFlash('notice', 'Votre commentaire a bien été ajouté.');
           return $this->redirectToRoute('hv_news_currentevents', array(
             'id' => $id));
+        } else {
+          $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+          if ($connection != false) {
+            $session = new Session();
+            $session->set('User', $connection);
+            return $this->redirectToRoute('hv_news_currentevents', array(
+            'id' => $id));
+          } else {
+            $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+            return $this->redirectToRoute('hv_news_currentevents', array(
+            'id' => $id));
+          }
         }
       }
 
       return $this->render('@HVNews/News/viewCurrentEvents.html.twig', array(
         'news' => $news,
         'comments' => $comments,
-        'formUsers' => $formUsers->createView(),
         'formComments' =>$formComments->createView(),
       ));
     }

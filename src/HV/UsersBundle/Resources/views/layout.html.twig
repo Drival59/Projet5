@@ -12,4 +12,14 @@
 
   {% block hvusers_body %}
   {% endblock %}
+
+  {% block javascripts %}
+    {% if errorMessage == 1 %}
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('#modalConnection').modal('show');
+           });
+      </script>
+    {% endif %}
+  {% endblock %}
 {% endblock %}

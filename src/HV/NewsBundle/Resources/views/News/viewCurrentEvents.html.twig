@@ -16,6 +16,14 @@
     {% endif %}
     <div id="commentsCurrentEvent">
       <h3>Commentaires ({{ comments|length }})</h3>
+      {% for message in app.flashes('notice') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
       {% for comment in comments %}
         <div class="commentCurrentEvent">
           <div class="avatarComment">

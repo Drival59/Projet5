@@ -15,7 +15,17 @@
       <p>C'est toute l'actu du métal</p>
     </div>
   </div>
+
   {% block hvnews_body %}
   {% endblock %}
 
+  {% block javascripts %}
+    {% if errorMessage == 1 %}
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('#modalConnection').modal('show');
+           });
+      </script>
+    {% endif %}
+  {% endblock %}
 {% endblock %}

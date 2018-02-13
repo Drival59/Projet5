@@ -1,8 +1,3 @@
-.navbar
-{
-  position: static;
-  z-index: 0;
-}
 #newsBanner
 {
   background: url('../images/metal-banner-news.jpg') no-repeat center;

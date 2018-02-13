@@ -19,6 +19,7 @@ class UsersController extends Controller
 
     $formUsers = $this->createForm(UsersType::class, new Users());
 
+
     if ($formUsers->handleRequest($request)->isValid()) {
       $newUser = new Users();
       $newUser->setLogin($_POST['hv_usersbundle_users']['login']);
@@ -28,6 +29,19 @@ class UsersController extends Controller
       $repository->flush();
       return $this->redirectToRoute('hv_home_homepage');
     }
+    if (isset($_POST['email']) AND isset($_POST['password'])) {
+      $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+      if ($connection != false) {
+        $session = new Session();
+        $session->set('User', $connection);
+        return $this->redirectToRoute('hv_news_currentevents', array(
+        'id' => $id));
+      } else {
+        $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+        return $this->redirectToRoute('hv_users_registration');
+      }
+    }
+
     return $this->render('@HVUsers/Users/registration.html.twig', array(
       'formUsers' =>$formUsers->createView(),
     ));
