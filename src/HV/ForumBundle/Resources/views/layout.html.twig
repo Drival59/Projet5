@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} - Forum
+{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/styleForum.css') }}">
+{% endblock %}
+
+{% block body %}
+  <div id="ForumBanner">
+    <div id="titleForumBanner">
+      <h1>WebSiteName</h1>
+      <p>Discutons... Métal !</p>
+    </div>
+  </div>
+
+  {% block hvforum_body %}
+  {% endblock %}
+
+  {% block javascripts %}
+    {% if errorMessage == 1 %}
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('#modalConnection').modal('show');
+           });
+      </script>
+    {% endif %}
+  {% endblock %}
+
+{% endblock %}

@@ -1,1 +1,37 @@
-Hello World!
+{% extends "@HVForum/layout.html.twig" %}
+
+{% block hvforum_body %}
+  <div id="forumTable">
+    {% for category in listCategory %}
+      <h2>{{ category.name }}</h2><hr />
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th class="col-lg-1"></th>
+            <th class="col-lg-7">Forum</th>
+            <th class="col-lg-5">Dernier message</th>
+            <th class="col-lg-1">Sujets</th>
+            <th class="col-lg-1">Posts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for section in listSection %}
+            {% if section.forumCategory.id == category.id %}
+              <tr>
+                <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-nomessage.png')}}" alt="" width="25px"/></td>
+                <td>{{ section.name }}</td>
+                <td>Drival le 15/02/2018</td>
+                <td>5</td>
+                <td>25</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+
+
+
+
+{% endblock %}

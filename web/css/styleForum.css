@@ -1,0 +1,38 @@
+#ForumBanner
+{
+  background: url('../images/metal-banner-forum.jpg') no-repeat center;
+  background-size: cover;
+  height: 300px;
+  position: relative;
+}
+#titleForumBanner
+{
+  color: #f4f3f1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  font-size: 3em;
+  font-family: 'Metal Mania', cursive;
+}
+#titleForumBanner h1
+{
+  font-size: 2.5em;
+}
+
+#forumTable
+{
+  max-width: 800px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: left;
+}
+table
+{
+  font-family: 'Metal Mania', cursive;
+}
