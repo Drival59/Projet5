@@ -1,0 +1,90 @@
+{% extends "@HVUsers/layout.html.twig" %}
+{% block title %}
+  {{ parent() }} - Modifier le profil
+{% endblock %}
+{% block hvusers_body %}
+  <br /><br />
+  <h1>Modification de profil</h1>
+  <div id="editFormUsers" class="jumbotron">
+    {{ form_start(formUsersPwd) }}
+    {{ form_errors(formUsersPwd) }}
+    <h3>Modifier mot de passe</h3><br />
+    {% for success in app.flashes('successPwd') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ success }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    <div class="form-group row">
+      <div class="col">
+        {{ form_label(formUsersPwd.password, "Nouveau mot de passe : (*)") }}
+        {{ form_widget(formUsersPwd.password) }}
+        {{ form_errors(formUsersPwd.password) }}
+      </div>
+      <div class="col">
+        {{ form_label(formUsersPwd.confirmPassword, "Confirmer le nouveau mot de passe : (*)") }}
+        {{ form_widget(formUsersPwd.confirmPassword) }}
+        {{ form_errors(formUsersPwd.confirmPassword) }}
+      </div>
+    </div><br />
+    {{ form_widget(formUsersPwd.save, {'label' : 'Modifier mot de passe'}) }}
+    {{ form_rest(formUsersPwd) }}
+    {{ form_end(formUsersPwd) }}
+
+    <br /><hr /><br />
+
+    {{ form_start(formUsersEmail) }}
+    {{ form_errors(formUsersEmail) }}
+    <h3>Modifier l'adresse email</h3><br />
+    {% for success in app.flashes('successEmail') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ success }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    <div class="form-group row">
+      <div class="col">
+        {{ form_label(formUsersEmail.email, "Nouvelle adresse email : (*)") }}
+        {{ form_widget(formUsersEmail.email) }}
+        {{ form_errors(formUsersEmail.email) }}
+      </div>
+      <div class="col">
+        {{ form_label(formUsersEmail.confirmEmail, "Confirmer la nouvelle adresse email : (*)") }}
+        {{ form_widget(formUsersEmail.confirmEmail) }}
+        {{ form_errors(formUsersEmail.confirmEmail) }}
+      </div>
+    </div><br />
+    {{ form_widget(formUsersEmail.save, {'label' : 'Modifier adresse email'}) }}
+    {{ form_rest(formUsersEmail) }}
+    {{ form_end(formUsersEmail) }}
+
+    <br /><hr /><br />
+
+    {{ form_start(formUsersAvatar) }}
+
+    <h3>Modifier l'avatar</h3><br />
+    {% for success in app.flashes('successAvatar') %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ success }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    <div class="form-group row">
+      <div class="col">
+        {{ form_label(formUsersAvatar.avatar, "Nouvel avatar : (*)") }}
+        {{ form_widget(formUsersAvatar.avatar) }}
+        {{ form_errors(formUsersAvatar.avatar) }}
+      </div>
+    </div><br />
+    {{ form_widget(formUsersAvatar.save, {'label' : 'Modifier l\'avatar'}) }}
+    {{ form_rest(formUsersAvatar) }}
+    {{ form_end(formUsersAvatar) }}
+
+  </div>
+{% endblock %}

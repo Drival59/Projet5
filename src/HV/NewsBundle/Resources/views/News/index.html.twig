@@ -23,7 +23,7 @@
           {% else %}
             <div class="carousel-item">
           {% endif %}
-            <img src="{{ asset('images/' ~ newInCarousel.imageUrl) }}" alt="Images du carousel" class="d-block w-100" style="height:400px">
+            <img src="{{ asset('images/news/' ~ newInCarousel.imageUrl) }}" alt="Images du carousel" class="d-block w-100" style="height:400px">
               <div class="carousel-caption d-none d-md-block">
                 <h3><a href="{{ path('hv_news_currentevents', {'id': newInCarousel.id}) }}">{{ newInCarousel.title }}</a></h3>
               </div>

@@ -4,11 +4,15 @@ namespace HV\UsersBundle\Controller;
 
 use HV\UsersBundle\Entity\Users;
 use HV\UsersBundle\Form\UsersType;
+use HV\UsersBundle\Form\UsersAvatarType;
+use HV\UsersBundle\Form\UsersPwdType;
+use HV\UsersBundle\Form\UsersEmailType;
 use HV\UsersBundle\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+
 
 
 class UsersController extends Controller
@@ -25,6 +29,7 @@ class UsersController extends Controller
       $newUser->setLogin($_POST['hv_usersbundle_users']['login']);
       $newUser->setPassword(password_hash($_POST['hv_usersbundle_users']['password'], PASSWORD_DEFAULT));
       $newUser->setEmail($_POST['hv_usersbundle_users']['email']);
+      $newUser->setAvatar("defaults_avatar_059_metal.jpg");
       $repository->persist($newUser);
       $repository->flush();
       return $this->redirectToRoute('hv_home_homepage');
@@ -46,10 +51,66 @@ class UsersController extends Controller
       'formUsers' =>$formUsers->createView(),
     ));
   }
-  public function editAction($login)
+
+
+  public function editAction($login, Request $request)
   {
-    return $this->render('@HVUsers/Users/edit.html.twig');
+    $em = $this->getDoctrine()->getManager();
+    $session = $request->getSession();
+
+    $users = $em->getRepository('HVUsersBundle:Users')->find($session->get('User')->getId());
+
+    $usersForPwd = new Users();
+    $formUsersPwd = $this->createForm(UsersPwdType::class, $usersForPwd);
+
+    $usersForEmail = new Users();
+    $formUsersEmail = $this->createForm(UsersEmailType::class, $usersForEmail);;
+
+    $usersForAvatar = new Users();
+    $formUsersAvatar = $this->createForm(UsersAvatarType::class, $usersForAvatar);
+
+    if ($formUsersPwd->handleRequest($request)->isValid()) {
+      $users->setPassword(password_hash($_POST['hv_usersbundle_usersPwd']['password'], PASSWORD_DEFAULT));
+      $em->flush();
+      $session->set('User', $users);
+      $this->addFlash('successPwd', 'Votre mot de passe a bien été modifié.');
+      return $this->redirectToRoute('hv_users_edit', array(
+        'login' => $session->get('User')->getLogin(),
+      ));
+    }
+    if ($formUsersEmail->handleRequest($request)->isValid()) {
+      $users->setEmail($_POST['hv_usersbundle_usersEmail']['email']);
+      $em->flush();
+      $session->set('User', $users);
+      $this->addFlash('successEmail', 'Votre adresse email a bien été modifiée.');
+      return $this->redirectToRoute('hv_users_edit', array(
+        'login' => $session->get('User')->getLogin(),
+      ));
+    }
+    if ($formUsersAvatar->handleRequest($request)->isValid()) {
+      /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+      $file = $usersForAvatar->getAvatar();
+      $fileName = $file->getClientOriginalName();
+      $file->move(
+        $this->getParameter('users_avatar_directory'),
+        $fileName
+      );
+      $users->setAvatar($fileName);
+      $em->flush();
+      $session->set('User', $users);
+      $this->addFlash('successAvatar', 'Votre avatar a bien été modifié');
+      return $this->redirectToRoute('hv_users_edit', array(
+        'login' => $session->get('User')->getLogin(),
+      ));
+    }
+    return $this->render('@HVUsers/Users/edit.html.twig', array(
+      'formUsersPwd' => $formUsersPwd->createView(),
+      'formUsersEmail' => $formUsersEmail->createView(),
+      'formUsersAvatar' => $formUsersAvatar->createView(),
+    ));
   }
+
+
   public function logoutAction()
   {
     $session = new Session();

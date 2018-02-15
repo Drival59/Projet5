@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UsersType extends AbstractType
 {
@@ -23,6 +24,7 @@ class UsersType extends AbstractType
         ->add('confirmEmail', EmailType::class)
         ->add('password', PasswordType::class)
         ->add('confirmPassword', PasswordType::class)
+        ->add('avatar', FileType::class)
         ->add('save',     SubmitType::class);
     }/**
      * {@inheritdoc}
@@ -30,7 +32,7 @@ class UsersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'HV\UsersBundle\Entity\Users'
+            'data_class' => 'HV\UsersBundle\Entity\Users',
         ));
     }
 
@@ -41,6 +43,5 @@ class UsersType extends AbstractType
     {
         return 'hv_usersbundle_users';
     }
-
 
 }

@@ -51,7 +51,15 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @Assert\File(
+     *    mimeTypes={
+     *        "image/png",
+     *        "image/jpeg",
+     *        "image/jpg",
+     *        "image/bmp"
+     *    }
+     * )
      */
     private $avatar;
 
@@ -78,7 +86,6 @@ class Users
 
     public function __construct()
     {
-      $this->setAvatar("defaults_avatar_059_metal.jpg");
       $this->setRights(0);
     }
     /**

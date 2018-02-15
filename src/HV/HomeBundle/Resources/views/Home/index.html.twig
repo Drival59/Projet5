@@ -22,7 +22,7 @@
       {% for news in lastNews %}
         <div class="lastPost">
           <div class="imgLastPost">
-            <a href="{{ path('hv_news_currentevents', {'id': news.id}) }}"><img src="{{ asset('images/' ~ news.imageUrl) }}" alt="images dernieres news" width="100%" height="100%">
+            <a href="{{ path('hv_news_currentevents', {'id': news.id}) }}"><img src="{{ asset('images/news/' ~ news.imageUrl) }}" alt="images dernieres news" width="100%" height="100%">
           </div>
           <h3><a href="{{ path('hv_news_currentevents', {'id': news.id}) }}"> {{ news.title }} </a></h3>
           <i>Ecrit par {{ news.users.login }} le {{ news.dateNews|date('d/m/Y') }}</i>
