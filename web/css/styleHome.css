@@ -93,6 +93,10 @@
   background: url('../images/metal-forum.jpg') no-repeat center;
   background-size: cover;
 }
+#titleAndClickForum a:hover
+{
+  text-decoration: none;
+}
 #clickForum
 {
   height: 250px;
@@ -106,6 +110,10 @@
   transition-property: height, width, background, color;
   transition-duration: 0.3s;
   font-size: 2em;
+}
+#clickForum a:hover
+{
+  color: red;
 }
 #clickForum:hover
 {

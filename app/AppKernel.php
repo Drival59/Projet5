@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new HV\NewsBundle\HVNewsBundle(),
             new HV\HomeBundle\HVHomeBundle(),
             new HV\UsersBundle\HVUsersBundle(),
+            new HV\ForumBundle\HVForumBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
