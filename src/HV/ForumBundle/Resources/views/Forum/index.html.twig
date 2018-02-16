@@ -21,8 +21,14 @@
                 <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-nomessage.png')}}" alt="" width="25px"/></td>
                 <td>{{ section.name }}</td>
                 <td>Drival le 15/02/2018</td>
-                <td>5</td>
-                <td>25</td>
+                {% set countTopic = 0 %}
+                {% for topic in listTopic %}
+                  {% if topic.forumSection.id == section.id %}
+                    {% set countTopic = countTopic + 1 %}
+                  {% endif %}
+                {% endfor %}
+                <td>{{ countTopic }}</td>
+                <td>post vide</td>
               </tr>
             {% endif %}
           {% endfor %}
