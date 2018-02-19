@@ -8,10 +8,10 @@
         <thead class="thead-dark">
           <tr>
             <th class="col-lg-1"></th>
-            <th class="col-lg-7">Forum</th>
-            <th class="col-lg-5">Dernier message</th>
-            <th class="col-lg-1">Sujets</th>
-            <th class="col-lg-1">Posts</th>
+            <th class="col-lg-5">Forum</th>
+            <th class="col-lg-4">Dernier message</th>
+            <th class="col-lg-1" style="text-align:center">Sujets</th>
+            <th class="col-lg-1" style="text-align:center">Posts</th>
           </tr>
         </thead>
         <tbody>
@@ -19,16 +19,30 @@
             {% if section.forumCategory.id == category.id %}
               <tr>
                 <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-nomessage.png')}}" alt="" width="25px"/></td>
-                <td>{{ section.name }}</td>
-                <td>Drival le 15/02/2018</td>
+                <td><h4><a href="{{ path('hv_forum_section', {'url' : section.url}) }}">{{ section.name }}</a></h4></td>
                 {% set countTopic = 0 %}
+                {% set countPost = 0 %}
+                {% set lastPostUsers = null %}
+                {% set lastPostDate = null %}
                 {% for topic in listTopic %}
                   {% if topic.forumSection.id == section.id %}
                     {% set countTopic = countTopic + 1 %}
+                    {% for post in listPost %}
+                      {% if post.forumTopic.id == topic.id %}
+                        {% set countPost = countPost + 1 %}
+                        {% set lastPostUsers = post.users.login %}
+                        {% set lastPostDate = post.datePost|date('d/m/Y à H:i') %}
+                      {% endif %}
+                    {% endfor %}
                   {% endif %}
                 {% endfor %}
-                <td>{{ countTopic }}</td>
-                <td>post vide</td>
+                {% if lastPostUsers != null %}
+                  <td>Par {{ lastPostUsers }} le {{ lastPostDate }}</td>
+                {% else %}
+                  <td>Aucun nouveau message</td>
+                {% endif %}
+                <td style="text-align:center">{{ countTopic }}</td>
+                <td style="text-align:center">{{ countPost }}</td>
               </tr>
             {% endif %}
           {% endfor %}

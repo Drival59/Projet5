@@ -34,6 +34,13 @@ class ForumSection
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255)
+     */
+    private $url;
+
 
     /**
      * Get id
@@ -91,5 +98,29 @@ class ForumSection
     public function getForumCategory()
     {
         return $this->forumCategory;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return ForumSection
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

@@ -26,7 +26,7 @@
 
 #forumTable
 {
-  max-width: 800px;
+  max-width: 960px;
   margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -35,4 +35,36 @@
 table
 {
   font-family: 'Metal Mania', cursive;
+}
+td, td h4, td h5
+{
+  height: 30px;
+  line-height: 40px;
+}
+a
+{
+  color: #23272b;
+}
+a:hover
+{
+  color: rgb(100, 100, 100);
+}
+.forum_tools
+{
+  display: flex;
+  justify-content: space-between;
+}
+.post_forum
+{
+  display: flex;
+  padding: 20px;
+}
+.user_description
+{
+  width: 20%;
+  text-align: center;
+}
+.user_post
+{
+  width: 80%;
 }

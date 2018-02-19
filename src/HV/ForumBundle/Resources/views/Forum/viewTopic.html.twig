@@ -1,0 +1,25 @@
+{% extends "@HVForum/layout.html.twig" %}
+
+{% block hvforum_body %}
+
+  <div id="forumTable">
+    <h2>{{ nameTopic }}</h2><hr />
+    <div class="forum_tools">
+      <p>Pagination</p>
+      <p><a href="{{ path('hv_forum_section', {'url' : urlSection }) }}">Retour au forum</a></p>
+    </div>
+      {% for post in listPost %}
+        <div class="jumbotron post_forum">
+          <div class="user_description">
+            <img src="{{ asset('images/avatars/' ~ post.users.avatar) }}" alt="avatar user" width="75%"/>
+            <p style="margin-top:10px;"><strong>{{ post.users.login }}</strong></p>
+          </div>
+          <div class="user_post">
+            <i style="font-size:0.9em">Le {{ post.datePost|date('d/m/Y à H:i') }}</i><hr/>
+            <p>{{ post.content }}</p>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+
+{% endblock %}

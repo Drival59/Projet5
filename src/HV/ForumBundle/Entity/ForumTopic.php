@@ -40,6 +40,13 @@ class ForumTopic
      */
     private $users;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="view", type="integer")
+     */
+    private $view;
+
 
     /**
      * Get id
@@ -122,5 +129,29 @@ class ForumTopic
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Set view
+     *
+     * @param integer $view
+     *
+     * @return ForumTopic
+     */
+    public function setView($view)
+    {
+        $this->view = $view;
+
+        return $this;
+    }
+
+    /**
+     * Get view
+     *
+     * @return integer
+     */
+    public function getView()
+    {
+        return $this->view;
     }
 }

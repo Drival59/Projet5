@@ -22,7 +22,7 @@ class UsersController extends Controller
     $repository = $this->getDoctrine()->getManager();
 
     $formUsers = $this->createForm(UsersType::class, new Users());
-
+    $formUsers->remove('avatar');
 
     if ($formUsers->handleRequest($request)->isValid()) {
       $newUser = new Users();

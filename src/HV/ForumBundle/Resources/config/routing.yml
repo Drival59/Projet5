@@ -2,3 +2,15 @@ hv_forum_homepage:
     path:     /
     defaults:
       _controller: HVForumBundle:Forum:index
+
+hv_forum_section:
+    path:     /{url}
+    defaults:
+        _controller: HVForumBundle:Forum:viewSection
+
+hv_forum_topic:
+    path:     /{url}/{id}
+    defaults:
+        _controller: HVForumBundle:Forum:viewTopic
+    requirements:
+        id: \d+
