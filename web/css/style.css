@@ -50,11 +50,17 @@ h1, h2, h3, h4, h5, h6
 #social-media
 {
   display: flex;
-  min-width: 400px;
+  width: 300px;
   justify-content: space-around;
   margin: 20px;
 }
 #footer-metal p
 {
   font-size: 1.5em;
+}
+@media (max-width: 960px) {
+  #titleWebSite
+  {
+    font-size: 1em;
+  }
 }
