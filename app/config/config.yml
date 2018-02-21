@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     users_avatar_directory: '%kernel.project_dir%/web/images/avatars'
+    nb_post_per_page: 10
 
 framework:
     #esi: ~

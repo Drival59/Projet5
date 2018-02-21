@@ -10,4 +10,16 @@ namespace HV\ForumBundle\Repository;
  */
 class ForumTopicRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function myFindByForumSection($idForumSection)
+  {
+
+    $qb = $this->createQueryBuilder('t');
+    $qb->where('t.forumSection = :idForumSection');
+    $qb->setParameter('idForumSection', $idForumSection);
+    $qb->orderBy('t.id', 'DESC');
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 }

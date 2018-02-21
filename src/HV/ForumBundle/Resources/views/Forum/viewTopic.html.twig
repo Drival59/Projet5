@@ -5,7 +5,7 @@
   <div id="forumTable">
     <h2>{{ nameTopic }}</h2><hr />
     <div class="forum_tools">
-      <p>Pagination</p>
+      {% include "@HVForum/Forum/pagination.html.twig" %}
       <p><a href="{{ path('hv_forum_section', {'url' : urlSection }) }}">Retour au forum</a></p>
     </div>
       {% for post in listPost %}
@@ -20,6 +20,7 @@
           </div>
         </div>
       {% endfor %}
+      {% include "@HVForum/Forum/pagination.html.twig" %}
   </div>
 
 {% endblock %}

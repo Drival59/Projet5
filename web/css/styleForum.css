@@ -54,6 +54,20 @@ a:hover
   display: flex;
   justify-content: space-between;
 }
+.pagination li
+{
+  margin: 5px;
+  background-color: #23272b;
+  min-width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Metal Mania', cursive;
+}
+.pagination li a
+{
+  color: #f4f3f1;
+}
 .post_forum
 {
   display: flex;
