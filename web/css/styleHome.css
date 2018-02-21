@@ -134,6 +134,10 @@
   align-items: center;
   justify-content: center;
 }
+#contact h2
+{
+  font-size: 5em;
+}
 #formContact
 {
   margin-top: 50px;

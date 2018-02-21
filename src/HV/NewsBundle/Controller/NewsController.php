@@ -2,9 +2,8 @@
 
 namespace HV\NewsBundle\Controller;
 
-use HV\NewsBundle\Entity\News;
+
 use HV\NewsBundle\Entity\Comments;
-use HV\UsersBundle\Entity\Users;
 use HV\UsersBundle\Form\UsersType;
 use HV\NewsBundle\Form\CommentsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -60,15 +59,17 @@ class NewsController extends Controller
 
       if ($request->isMethod('POST')) {
         if (isset($_POST['hv_newsbundle_comments'])) {
-          $newComment = new Comments();
-          $newComment->setNews($news);
-          $newComment->setUsers($session->get('User'));
-          $newComment->setContent($_POST['hv_newsbundle_comments']['content']);
-          $repository->merge($newComment);
-          $repository->flush();
-          $this->addFlash('notice', 'Votre commentaire a bien été ajouté.');
-          return $this->redirectToRoute('hv_news_currentevents', array(
-            'id' => $id));
+          if ($formComments->handleRequest($request)->isValid()) {
+            $newComment = new Comments();
+            $newComment->setNews($news);
+            $newComment->setUsers($session->get('User'));
+            $newComment->setContent($_POST['hv_newsbundle_comments']['content']);
+            $repository->merge($newComment);
+            $repository->flush();
+            $this->addFlash('notice', 'Votre commentaire a bien été ajouté.');
+            return $this->redirectToRoute('hv_news_currentevents', array(
+              'id' => $id));
+          }
         } else {
           $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
           if ($connection != false) {

@@ -120,6 +120,11 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+#writeComment
+{
+  text-align: left;
+  padding: 20px;
+}
 #commentsCurrentEvent h3
 {
   border: 2px solid #343a40;
@@ -151,4 +156,19 @@
 .commentContent p
 {
   margin-top: 10px;
+}
+
+@media (max-width: 960px) {
+  #titleNewsBanner
+  {
+    font-size: 2em;
+  }
+  #titleNewsBanner h1
+  {
+    font-size: 2.5em;
+  }
+  #widgets
+  {
+    display: none;
+  }
 }

@@ -12,7 +12,18 @@
       <p>{{ news.content|raw }}</p>
     </div>
     {% if app.session.get('User') != null %}
-      {{ form(formComments) }}
+      <div class="jumbotron" id="writeComment">
+        {{ form_start(formComments) }}
+        {{ form_errors(formComments) }}
+        <div class="form-group">
+          {{ form_label(formComments.content, "Ecrivez votre commentaire :") }}
+          {{ form_widget(formComments.content) }}
+          {{ form_errors(formComments.content) }}
+        </div>
+        {{ form_widget(formComments.save, {'label' : 'Envoyez'}) }}
+        {{ form_rest(formComments) }}
+        {{ form_end(formComments) }}
+      </div>
     {% endif %}
     <div id="commentsCurrentEvent">
       <h3>Commentaires ({{ comments|length }})</h3>

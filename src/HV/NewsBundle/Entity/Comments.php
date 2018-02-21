@@ -37,7 +37,7 @@ class Comments
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\Length(max=255, maxMessage="Le commentaire ne doit pas faire plus de {{ limit }} caractères.")
      */
     private $content;
 
