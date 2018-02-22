@@ -16,11 +16,13 @@ class ForumController extends Controller
       $listCategory = $em->getRepository('HVForumBundle:ForumCategory')->findAll();
       $listSection = $em->getRepository('HVForumBundle:ForumSection')->findAll();
       $listTopic = $em->getRepository('HVForumBundle:ForumTopic')->findAll();
+      $listTopicView = $em->getRepository('HVForumBundle:ForumTopicView')->findAll();
       $listPost = $em->getRepository('HVForumBundle:ForumPost')->findAll();
       return $this->render('@HVForum/Forum/index.html.twig', array(
         'listCategory' => $listCategory,
         'listSection' => $listSection,
         'listTopic' => $listTopic,
+        'listTopicView' => $listTopicView,
         'listPost' => $listPost,
       ));
     }
@@ -35,21 +37,19 @@ class ForumController extends Controller
             'Aucune section disponible avec l\'url suivant : '.$url
         );
       }
-
-      $idSection = $section[0]->getId();
-      $nameSection = $section[0]->getName();
-      $urlSection = $section[0]->getUrl();
-      $listTopic = $em->getRepository('HVForumBundle:ForumTopic')->myFindByForumSection($idSection);
+      $listTopicView = $em->getRepository('HVForumBundle:ForumTopicView')->findAll();
+      $listTopic = $em->getRepository('HVForumBundle:ForumTopic')->myFindByForumSection($section[0]->getId());
       $listPost = $em->getRepository('HVForumBundle:ForumPost')->findAll();
       return $this->render('@HVForum/Forum/viewSection.html.twig', array(
         'listTopic' => $listTopic,
-        'nameSection' => $nameSection,
         'listPost' => $listPost,
-        'urlSection' => $urlSection,
+        'listTopicView' => $listTopicView,
+        'nameSection' => $section[0]->getName(),
+        'urlSection' => $section[0]->getUrl(),
       ));
     }
 
-    public function viewTopicAction($url, $id, $page)
+    public function viewTopicAction(Request $request, $url, $id, $page)
     {
       $nbPostPerPage = $this->container->getParameter('nb_post_per_page');
       $em = $this->getDoctrine()->getManager();
@@ -67,12 +67,19 @@ class ForumController extends Controller
         );
       }
 
+      $session = $request->getSession();
+      if ($session->get('User') != null) {
+        $idUsers = $session->get('User')->getId();
+        $topicView = $em->getRepository('HVForumBundle:ForumTopicView')->getTopicView($idUsers, $id);
+        $em->remove($topicView[0]);
+      }
+      
       $views = $topic->getView();
       $views++;
       $topic->setView($views);
       $em->flush();
-      $nameTopic = $topic->getSubject();
       $listPost = $em->getRepository('HVForumBundle:ForumPost')->MyFindByForumTopic($id, $page, $nbPostPerPage);
+
       $pagination = array(
         'page' => $page,
         'nbPages' => ceil(count($listPost) / $nbPostPerPage),
@@ -82,9 +89,10 @@ class ForumController extends Controller
           'id' => $id,
         ),
       );
+
       return $this->render('@HVForum/Forum/viewTopic.html.twig', array(
         'listPost' => $listPost,
-        'nameTopic' => $nameTopic,
+        'nameTopic' => $topic->getSubject(),
         'urlSection' => $url,
         'pagination' => $pagination,
       ));

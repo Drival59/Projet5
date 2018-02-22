@@ -19,20 +19,33 @@
 
     <tbody>
       {% for topic in listTopic %}
-        <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-nomessage.png')}}" alt="" width="25px"/></td>
-        <td><h5><a href="{{ path('hv_forum_topic', {'url' : urlSection, 'id' : topic.id })}}">{{ topic.subject }}</a></h5></td>
         {% set countPost = 0 %}
-        {% set countPost = 0 %}
+        {% set topicNoRead = 0 %}
         {% set lastPost = "Aucun message dans ce topic" %}
+        {% for topicView in listTopicView %}
+          {% if app.session.get('User') != null %}
+            {% if topicView.forumTopic.id == topic.id and app.session.get('User').id == topicView.users.id %}
+              {% set topicNoRead = 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
         {% for post in listPost %}
           {% if post.forumTopic.id == topic.id %}
           {% set lastPost = "Écrit par " ~ topic.users.login ~ " le " ~ post.datePost|date('d/m/Y à H:i') ~ "" %}
           {% set countPost = countPost + 1 %}
           {% endif %}
         {% endfor %}
-        <td>{{ lastPost }}</td>
-        <td style="text-align:center">{{ countPost }}</td>
-        <td style="text-align:center">{{ topic.view }}</td>
+        <tr>
+          {% if topicNoRead == 0 %}
+            <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-nomessage.png')}}" alt="" width="25px"/></td>
+          {% else %}
+            <td style="text-align:center"><img src="{{ asset('images/forum/metal-icon-newmessage.png')}}" alt="" width="25px"/></td>
+          {% endif %}
+          <td><h5><a href="{{ path('hv_forum_topic', {'url' : urlSection, 'id' : topic.id })}}">{{ topic.subject }}</a></h5></td>
+          <td>{{ lastPost }}</td>
+          <td style="text-align:center">{{ countPost }}</td>
+          <td style="text-align:center">{{ topic.view }}</td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>

@@ -16,7 +16,7 @@ class ForumTopicRepository extends \Doctrine\ORM\EntityRepository
     $qb = $this->createQueryBuilder('t');
     $qb->where('t.forumSection = :idForumSection');
     $qb->setParameter('idForumSection', $idForumSection);
-    $qb->orderBy('t.id', 'DESC');
+    $qb->orderBy('t.dateLastPost', 'DESC');
     return $qb
       ->getQuery()
       ->getResult()

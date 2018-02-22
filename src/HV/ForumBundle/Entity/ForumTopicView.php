@@ -3,15 +3,14 @@
 namespace HV\ForumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * ForumPost
+ * ForumTopicView
  *
- * @ORM\Table(name="forum_post")
- * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumPostRepository")
+ * @ORM\Table(name="forum_topic_view")
+ * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumTopicViewRepository")
  */
-class ForumPost
+class ForumTopicView
 {
     /**
      * @var int
@@ -23,30 +22,18 @@ class ForumPost
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="string", length=255)
-     */
-    private $content;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_post", type="datetime")
-     */
-    private $datePost;
-
-    /**
     * @ORM\ManyToOne(targetEntity="HV\UsersBundle\Entity\Users")
     * @ORM\JoinColumn(nullable=false)
     */
     private $users;
+
 
     /**
     * @ORM\ManyToOne(targetEntity="HV\ForumBundle\Entity\ForumTopic")
     * @ORM\JoinColumn(nullable=false)
     */
     private $forumTopic;
+
 
     /**
      * Get id
@@ -58,60 +45,14 @@ class ForumPost
         return $this->id;
     }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return ForumPost
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set datePost
-     *
-     * @param \DateTime $datePost
-     *
-     * @return ForumPost
-     */
-    public function setDatePost($datePost)
-    {
-        $this->datePost = $datePost;
-
-        return $this;
-    }
-
-    /**
-     * Get datePost
-     *
-     * @return \DateTime
-     */
-    public function getDatePost()
-    {
-        return $this->datePost;
-    }
+    
 
     /**
      * Set users
      *
      * @param \HV\UsersBundle\Entity\Users $users
      *
-     * @return ForumPost
+     * @return ForumTopicView
      */
     public function setUsers(\HV\UsersBundle\Entity\Users $users)
     {
@@ -135,7 +76,7 @@ class ForumPost
      *
      * @param \HV\ForumBundle\Entity\ForumTopic $forumTopic
      *
-     * @return ForumPost
+     * @return ForumTopicView
      */
     public function setForumTopic(\HV\ForumBundle\Entity\ForumTopic $forumTopic)
     {

@@ -84,6 +84,13 @@ class Users
      */
     private $confirmEmail;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_visit", type="datetime")
+     */
+    private $dateLastVisit;
+
     public function __construct()
     {
       $this->setRights(0);
@@ -262,5 +269,29 @@ class Users
     public function getConfirmEmail()
     {
         return $this->confirmEmail;
+    }
+
+    /**
+     * Set dateLastVisit
+     *
+     * @param \DateTime $dateLastVisit
+     *
+     * @return Users
+     */
+    public function setDateLastVisit($dateLastVisit)
+    {
+        $this->dateLastVisit = $dateLastVisit;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastVisit
+     *
+     * @return \DateTime
+     */
+    public function getDateLastVisit()
+    {
+        return $this->dateLastVisit;
     }
 }

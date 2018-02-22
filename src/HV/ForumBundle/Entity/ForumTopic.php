@@ -47,6 +47,12 @@ class ForumTopic
      */
     private $view;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_post", type="datetime")
+     */
+    private $dateLastPost;
 
     /**
      * Get id
@@ -153,5 +159,29 @@ class ForumTopic
     public function getView()
     {
         return $this->view;
+    }
+
+    /**
+     * Set dateLastPost
+     *
+     * @param \DateTime $dateLastPost
+     *
+     * @return ForumTopic
+     */
+    public function setDateLastPost($dateLastPost)
+    {
+        $this->dateLastPost = $dateLastPost;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastPost
+     *
+     * @return \DateTime
+     */
+    public function getDateLastPost()
+    {
+        return $this->dateLastPost;
     }
 }

@@ -8,6 +8,7 @@
       {% include "@HVForum/Forum/pagination.html.twig" %}
       <p><a href="{{ path('hv_forum_section', {'url' : urlSection }) }}">Retour au forum</a></p>
     </div>
+      {% set dateLastPost = null %}
       {% for post in listPost %}
         <div class="jumbotron post_forum">
           <div class="user_description">
@@ -16,11 +17,28 @@
           </div>
           <div class="user_post">
             <i style="font-size:0.9em">Le {{ post.datePost|date('d/m/Y à H:i') }}</i><hr/>
+            {% set dateLastPost = post.datePost %}
             <p>{{ post.content }}</p>
           </div>
         </div>
       {% endfor %}
-      {% include "@HVForum/Forum/pagination.html.twig" %}
+
+      {# {% set addTopicVisited = {'idTopic': idTopic, 'datePost': dateLastPost} %}
+      {% set lastTopicVisited = app.session.get('LastTopicVisited') %}
+      {% if app.session.get('LastTopicVisited') != null %}
+        {% set lastTopicVisited = app.session.get('LastTopicVisited') %}
+        {% for lastTopic in lastTopicVisited %}
+          {% set index = loop.index0 %}
+          {% if lastTopic.idTopic == idTopic and lastTopic.datePost != dateLastPost %}
+              {{ app.session.set('LastTopicVisited', lastTopicVisited|merge([addTopicVisited])) }}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {{ app.session.set('LastTopicVisited', [addTopicVisited]) }}
+      {% endif %}
+        {% set test = lastTopicVisited.2.idTopic == "" %}
+      {% include "@HVForum/Forum/pagination.html.twig" %} #}
+      
   </div>
 
 {% endblock %}
