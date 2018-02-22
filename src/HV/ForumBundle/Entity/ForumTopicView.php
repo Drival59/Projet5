@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ForumTopicView
  *
- * @ORM\Table(name="forum_topic_view")
+ * @ORM\Table(name="p5_forum_topic_view")
  * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumTopicViewRepository")
  */
 class ForumTopicView
@@ -45,7 +45,7 @@ class ForumTopicView
         return $this->id;
     }
 
-    
+
 
     /**
      * Set users

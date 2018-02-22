@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Comments
  *
- * @ORM\Table(name="comments")
+ * @ORM\Table(name="p5_comments")
  * @ORM\Entity(repositoryClass="HV\NewsBundle\Repository\CommentsRepository")
  */
 class Comments

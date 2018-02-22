@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * ForumPost
  *
- * @ORM\Table(name="forum_post")
+ * @ORM\Table(name="p5_forum_post")
  * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumPostRepository")
  */
 class ForumPost

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ForumSection
  *
- * @ORM\Table(name="forum_section")
+ * @ORM\Table(name="p5_forum_section")
  * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumSectionRepository")
  */
 class ForumSection

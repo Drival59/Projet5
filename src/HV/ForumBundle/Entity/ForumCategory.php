@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ForumCategory
  *
- * @ORM\Table(name="forum_category")
+ * @ORM\Table(name="p5_forum_category")
  * @ORM\Entity(repositoryClass="HV\ForumBundle\Repository\ForumCategoryRepository")
  */
 class ForumCategory
@@ -63,4 +63,3 @@ class ForumCategory
         return $this->name;
     }
 }
-

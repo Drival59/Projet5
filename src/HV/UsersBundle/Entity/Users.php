@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Users
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="p5_users")
  * @ORM\Entity(repositoryClass="HV\UsersBundle\Repository\UsersRepository")
  * @UniqueEntity(fields="email", message="Cette adresse mail est déjà associé à un compte.")
  * @UniqueEntity(fields="login", message="Ce pseudo est déjà utilisé par un autre utilisateur.")
