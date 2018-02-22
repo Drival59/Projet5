@@ -1,0 +1,18 @@
+{% extends "@HVForum/layout.html.twig "%}
+
+{% block hvforum_body %}
+  <div id="formAddPost">
+    <h2>Répondre à un topic</h2><hr />
+    <div class="forum_tools" style="float:right">
+      <a href="{{ path('hv_forum_topic', {'url' : urlSection, 'id' : idTopic }) }}"><button class="btn btn-dark">Retour au forum</button></a>
+    </div>
+    <br /><br />
+    <form method="post">
+      <div class="form-group">
+        <label for="postContent">Contenu du message :</label>
+        <textarea class="form-control" name="postContent" rows="10" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-dark">Répondre le topic</button>
+    </form>
+  </div>
+{% endblock %}

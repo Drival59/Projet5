@@ -6,7 +6,12 @@
     <h2>{{ nameTopic }}</h2><hr />
     <div class="forum_tools">
       {% include "@HVForum/Forum/pagination.html.twig" %}
-      <p><a href="{{ path('hv_forum_section', {'url' : urlSection }) }}">Retour au forum</a></p>
+      <div class="buttonForum">
+        {% if app.session.get('User') != null %}
+          <a href="{{ path('hv_forum_post_add', {'url' : urlSection, 'id': id }) }}"><button class="btn btn-dark">Répondre</button></a>
+        {% endif %}
+        <a href="{{ path('hv_forum_section', {'url' : urlSection }) }}"><button class="btn btn-dark">Retour au forum</button></a>
+      </div>
     </div>
       {% set dateLastPost = null %}
       {% for post in listPost %}
@@ -38,7 +43,7 @@
       {% endif %}
         {% set test = lastTopicVisited.2.idTopic == "" %}
       {% include "@HVForum/Forum/pagination.html.twig" %} #}
-      
+
   </div>
 
 {% endblock %}

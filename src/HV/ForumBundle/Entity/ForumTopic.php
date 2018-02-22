@@ -54,6 +54,11 @@ class ForumTopic
      */
     private $dateLastPost;
 
+    public function __construct()
+    {
+      $this->setDateLastPost();
+      $this->setView(0);
+    }
     /**
      * Get id
      *
@@ -168,10 +173,9 @@ class ForumTopic
      *
      * @return ForumTopic
      */
-    public function setDateLastPost($dateLastPost)
+    public function setDateLastPost()
     {
-        $this->dateLastPost = $dateLastPost;
-
+        $this->dateLastPost = new \Datetime();
         return $this;
     }
 

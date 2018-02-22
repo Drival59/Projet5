@@ -82,3 +82,17 @@ a:hover
 {
   width: 80%;
 }
+#formCreateTopic, #formAddPost
+{
+  max-width: 960px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: left;
+}
+.buttonForum
+{
+  min-width: 275px;
+  display: flex;
+  justify-content: space-between;
+}

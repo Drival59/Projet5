@@ -4,9 +4,12 @@ namespace HV\ForumBundle\Controller;
 
 use HV\ForumBundle\Entity\ForumCategory;
 use HV\ForumBundle\Entity\ForumTopic;
+use HV\ForumBundle\Entity\ForumPost;
+use HV\ForumBundle\Entity\ForumTopicView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ForumController extends Controller
 {
@@ -71,9 +74,11 @@ class ForumController extends Controller
       if ($session->get('User') != null) {
         $idUsers = $session->get('User')->getId();
         $topicView = $em->getRepository('HVForumBundle:ForumTopicView')->getTopicView($idUsers, $id);
-        $em->remove($topicView[0]);
+        if (!empty($topicView)) {
+          $em->remove($topicView[0]);
+        }
       }
-      
+
       $views = $topic->getView();
       $views++;
       $topic->setView($views);
@@ -95,6 +100,106 @@ class ForumController extends Controller
         'nameTopic' => $topic->getSubject(),
         'urlSection' => $url,
         'pagination' => $pagination,
+        'id' => $id,
+      ));
+    }
+
+    public function createTopicAction(Request $request, $url)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $session = $request->getSession();
+      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+
+      if (!$section) {
+        throw $this->createNotFoundException(
+            'Aucune section disponible avec l\'url suivant : '.$url
+        );
+      }
+
+      if ($request->isMethod('POST')) {
+        $newTopic = new ForumTopic();
+        $newTopic->setSubject($_POST['topicTitle']);
+        $newTopic->setForumSection($section[0]);
+        $newTopic->setUsers($session->get('User'));
+        $em->merge($newTopic);
+        $em->flush();
+
+        $newTopic = $em->getRepository('HVForumBundle:ForumTopic')->findByDateLastPost($newTopic->getDateLastPost());
+
+        $newPost = new ForumPost();
+        $newPost->setContent($_POST['topicContent']);
+        $newPost->setUsers($session->get('User'));
+        $newPost->setForumTopic($newTopic[0]);
+        $em->merge($newPost);
+        $em->flush();
+
+        $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
+
+        foreach ($allUsers as $user) {
+          if ($user->getId() != $session->get('User')->getId()) {
+            $topicView = new ForumTopicView();
+            $topicView->setUsers($user);
+            $topicView->setForumTopic($newTopic[0]);
+            $em->merge($topicView);
+            $em->flush();
+          }
+        }
+        return $this->redirectToRoute('hv_forum_section', array(
+          'url' => $url,
+        ));
+      }
+      return $this->render('@HVForum/Forum/createTopic.html.twig', array(
+        'urlSection' => $url,
+      ));
+    }
+
+    public function addPostAction(Request $request, $url, $id)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $session = $request->getSession();
+
+      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+      if (!$section) {
+        throw $this->createNotFoundException(
+            'Aucune section disponible avec l\'url suivant : '.$url
+        );
+      }
+
+      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+      if (!$topic) {
+        throw $this->createNotFoundException(
+            'Aucun topic disponible avec l\'id suivant : '.$id
+        );
+      }
+
+      if ($request->isMethod('POST')) {
+        $newPost = new ForumPost();
+        $newPost->setContent($_POST['postContent']);
+        $newPost->setUsers($session->get('User'));
+        $newPost->setForumTopic($topic);
+        $em->merge($newPost);
+        $em->flush();
+
+        $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
+
+        foreach ($allUsers as $user) {
+          if ($user->getId() != $session->get('User')->getId()) {
+            $topicView = new ForumTopicView();
+            $topicView->setUsers($user);
+            $topicView->setForumTopic($topic);
+            $em->merge($topicView);
+            $em->flush();
+          }
+        }
+        return $this->redirectToRoute('hv_forum_topic', array(
+          'url' => $url,
+          'id' => $id,
+        ));
+      }
+
+      return $this->render('@HVForum/Forum/addPost.html.twig', array(
+        'urlSection' => $url,
+        'idTopic' => $id,
       ));
     }
 }

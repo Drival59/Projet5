@@ -3,9 +3,12 @@
 {% block hvforum_body %}
 <div id="forumTable">
   <h2>{{ nameSection }}</h2><hr />
-  <div class="forum_tools" style="float: right">
-    <p><a href="{{ path('hv_forum_homepage') }}">Retour au forum</a></p>
-  </div>
+  <div class="forum_tools">
+    {% if app.session.get('User') != null %}
+      <a href="{{ path('hv_forum_topic_add', {'url': urlSection}) }}"><button class="btn btn-dark">Créer un topic</button></a>
+    {% endif %}
+    <a href="{{ path('hv_forum_homepage') }}"><button class="btn btn-dark">Retour au forum</button></a>
+  </div><br />
   <table class="table table-bordered">
     <thead class="thead-dark">
       <tr>

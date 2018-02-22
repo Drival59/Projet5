@@ -1,0 +1,22 @@
+{% extends "@HVForum/layout.html.twig "%}
+
+{% block hvforum_body %}
+  <div id="formCreateTopic">
+    <h2>Création d'un Topic</h2><hr />
+    <div class="forum_tools" style="float:right">
+      <a href="{{ path('hv_forum_section', {'url' : urlSection }) }}"><button class="btn btn-dark">Retour au forum</button></a>
+    </div>
+    <br /><br />
+    <form method="post">
+      <div class="form-group">
+        <label for="topicTitle">Titre du topic :</label>
+        <input type="text" class="form-control" name="topicTitle" aria-describedby="textHelp" required>
+      </div>
+      <div class="form-group">
+        <label for="topicContent">Contenu du topic :</label>
+        <textarea class="form-control" name="topicContent" rows="10" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-dark">Créer le topic</button>
+    </form>
+  </div>
+{% endblock %}

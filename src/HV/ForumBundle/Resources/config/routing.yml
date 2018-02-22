@@ -16,3 +16,15 @@ hv_forum_topic:
     requirements:
         id: \d+
         page: \d+
+
+hv_forum_topic_add:
+    path:     /{url}/createtopic
+    defaults:
+        _controller: HVForumBundle:Forum:createTopic
+
+hv_forum_post_add:
+    path:     /{url}/topic={id}/addpost
+    defaults:
+        _controller: HVForumBundle:Forum:addPost
+    requirements:
+        id: \d+

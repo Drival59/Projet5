@@ -48,6 +48,11 @@ class ForumPost
     */
     private $forumTopic;
 
+
+    public function __construct()
+    {
+      $this->setDatePost();
+    }
     /**
      * Get id
      *
@@ -89,10 +94,9 @@ class ForumPost
      *
      * @return ForumPost
      */
-    public function setDatePost($datePost)
+    public function setDatePost()
     {
-        $this->datePost = $datePost;
-
+        $this->datePost = new \Datetime();
         return $this;
     }
 
