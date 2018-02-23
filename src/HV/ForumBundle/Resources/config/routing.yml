@@ -28,3 +28,19 @@ hv_forum_post_add:
         _controller: HVForumBundle:Forum:addPost
     requirements:
         id: \d+
+
+hv_forum_post_edit:
+    path:     /{url}/topic={id}/edit/{idPost}
+    defaults:
+        _controller: HVForumBundle:Forum:editPost
+    requirements:
+        id: \d+
+        idPost: \d+
+
+hv_forum_post_delete:
+    path:     /{url}/topic={id}/delete/{idPost}
+    defaults:
+        _controller: HVForumBundle:Forum:deletePost
+    requirements:
+        id: \d+
+        idPost: \d+

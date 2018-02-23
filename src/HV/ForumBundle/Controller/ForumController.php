@@ -202,4 +202,70 @@ class ForumController extends Controller
         'idTopic' => $id,
       ));
     }
+
+    public function editPostAction(Request $request, $url, $id, $idPost)
+    {
+      $em = $this->getDoctrine()->getManager();
+
+      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+      if (!$section) {
+        throw $this->createNotFoundException(
+            'Aucune section disponible avec l\'url suivant : '.$url
+        );
+      }
+
+      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+      if (!$topic) {
+        throw $this->createNotFoundException(
+            'Aucun topic disponible avec l\'id suivant : '.$id
+        );
+      }
+
+      $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
+
+      if ($request->isMethod('POST')) {
+        $post->setContent($_POST['postContent']);
+        $em->flush();
+
+        return $this->redirectToRoute('hv_forum_topic', array(
+          'url' => $url,
+          'id' => $id,
+        ));
+      }
+
+      return $this->render('@HVForum/Forum/editPost.html.twig', array(
+        'urlSection' => $url,
+        'id' => $id,
+        'post' => $post,
+      ));
+    }
+
+    public function deletePostAction($url, $id, $idPost)
+    {
+      $em = $this->getDoctrine()->getManager();
+
+      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+      if (!$section) {
+        throw $this->createNotFoundException(
+            'Aucune section disponible avec l\'url suivant : '.$url
+        );
+      }
+
+      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+      if (!$topic) {
+        throw $this->createNotFoundException(
+            'Aucun topic disponible avec l\'id suivant : '.$id
+        );
+      }
+
+      $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
+
+      $em->remove($post);
+      $em->flush();
+
+      return $this->redirectToRoute('hv_forum_topic', array(
+        'url' => $url,
+        'id' => $id,
+      ));
+    }
 }

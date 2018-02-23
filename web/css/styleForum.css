@@ -82,6 +82,13 @@ a:hover
 {
   width: 80%;
 }
+.buttonPost
+{
+  float: right;
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
 #formCreateTopic, #formAddPost
 {
   max-width: 960px;

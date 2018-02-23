@@ -21,7 +21,16 @@
             <p style="margin-top:10px;"><strong>{{ post.users.login }}</strong></p>
           </div>
           <div class="user_post">
-            <i style="font-size:0.9em">Le {{ post.datePost|date('d/m/Y à H:i') }}</i><hr/>
+            <i style="font-size:0.9em">Le {{ post.datePost|date('d/m/Y à H:i') }}</i>
+            {% if app.session.get('User') != null %}
+              {% if app.session.get('User').id == post.users.id or app.session.get('User').rights == 1 %}
+                <div class="buttonPost">
+                  <a href="{{ path('hv_forum_post_edit', {'url' : urlSection, 'id': id, 'idPost': post.id }) }}"><button class="btn btn-dark"><i class="fas fa-pen-square"></i></button></a>
+                  <a href="{{ path('hv_forum_post_delete', {'url' : urlSection, 'id': id, 'idPost': post.id }) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+                </div>
+              {% endif %}
+            {% endif %}
+            <hr/>
             {% set dateLastPost = post.datePost %}
             <p>{{ post.content }}</p>
           </div>
