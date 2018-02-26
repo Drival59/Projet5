@@ -41,8 +41,20 @@
       </div>
     </div>
 
+    <h2>Administration des commentaires</h2><hr />
     <div id="commentAdmin">
-      <h2>Administration des commentaires</h2>
+      <div class="commentsBlock">
+      <h4>Afficher des commentaires</h4>
+      <form action="{{ path('hv_news_adminComment') }}">
+        <select class="form-control" name="id">
+          {% for news in listNews %}
+            <option value="{{ news.id }}">{{ news.title }}</option>
+          {% endfor %}
+        </select>
+        <br />
+        <button type="submit" class="btn btn-dark">Afficher</button>
+      </form>
+      </div>
     </div>
     <div id="forumAdmin">
       <h2>Administration du forum</h2>

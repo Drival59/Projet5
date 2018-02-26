@@ -48,9 +48,17 @@ class Comments
      */
     private $dateComment;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="reports", type="integer")
+     */
+    private $reports;
+
     public function __construct()
     {
       $this->setDateComment();
+      $this->reports = 0;
     }
     /**
      * Get id
@@ -155,5 +163,29 @@ class Comments
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Set reports
+     *
+     * @param integer $reports
+     *
+     * @return Comments
+     */
+    public function setReports($reports)
+    {
+        $this->reports = $reports;
+
+        return $this;
+    }
+
+    /**
+     * Get reports
+     *
+     * @return integer
+     */
+    public function getReports()
+    {
+        return $this->reports;
     }
 }

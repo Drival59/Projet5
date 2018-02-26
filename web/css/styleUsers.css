@@ -39,14 +39,14 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
-#newsAdmin
+#newsAdmin, #commentAdmin
 {
   display: flex;
   justify-content: space-between;
   margin-top: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 75px;
 }
-.newsBlock
+.newsBlock, .commentsBlock
 {
   min-width: 350px;
   height: 200px;
@@ -56,4 +56,10 @@
   border: 1px solid #969696;
   border-radius: 5px;
   padding: 20px;
+  margin-top: 25px;
+}
+.commentsBlock
+{
+  margin: auto;
+  margin-top: 25px;
 }

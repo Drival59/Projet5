@@ -185,4 +185,56 @@ class NewsController extends Controller
       }
       return $this->redirectToRoute('hv_users_admin');
     }
+
+    public function adminCommentAction(Request $request)
+    {
+      $session = $request->getSession();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('HVNewsBundle:Comments')->getComments($_GET['id']);
+
+        return $this->render('@HVNews/News/adminComment.html.twig', array(
+          'comments' => $comments,
+        ));
+      }
+      return $this->redirectToRoute('hv_news_currentevents', array(
+        'id' => $_GET['id'],
+      ));
+    }
+
+    public function deleteCommentAction(Request $request)
+    {
+      $session = $request->getSession();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('HVNewsBundle:Comments')->find($_GET['id']);
+
+        $em->remove($comment);
+        $em->flush();
+      }
+      return $this->redirectToRoute('hv_users_admin');
+    }
+
+    public function editCommentAction(Request $request)
+    {
+      $session = $request->getSession();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('HVNewsBundle:Comments')->find($_GET['id']);
+        $formComments = $this->createForm(CommentsType::class, new Comments());
+
+        if ($formComments->handleRequest($request)->isValid()) {
+          $comment->setContent($_POST['hv_newsbundle_comments']['content']);
+          $comment->setReports(0);
+          $em->merge($comment);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
+        }
+        return $this->render('@HVNews/News/editComment.html.twig', array(
+          'comment' => $comment,
+          'formComments' => $formComments->createView(),
+        ));
+      }
+      return $this->redirectToRoute('hv_users_admin');
+    }
 }

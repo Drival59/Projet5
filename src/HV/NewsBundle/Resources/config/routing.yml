@@ -24,3 +24,18 @@ hv_news_deleteNew:
     path: /delete
     defaults:
       _controller: HVNewsBundle:News:deleteNew
+
+hv_news_adminComment:
+    path: /adminComment
+    defaults:
+      _controller: HVNewsBundle:News:adminComment
+
+hv_news_deleteComment:
+    path: /deleteComment
+    defaults:
+      _controller: HVNewsBundle:News:deleteComment
+
+hv_news_editComment:
+    path: /editComment
+    defaults:
+      _controller: HVNewsBundle:News:editComment

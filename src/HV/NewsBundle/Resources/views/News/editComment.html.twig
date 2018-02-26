@@ -1,0 +1,16 @@
+{% extends "@HVNews/layout.html.twig" %}
+
+{% block hvnews_body %}
+  <div class="container" id="writeComment">
+    {{ form_start(formComments) }}
+    {{ form_errors(formComments) }}
+    <div class="form-group">
+      {{ form_label(formComments.content, "Éditer le commentaire :") }}
+      {{ form_widget(formComments.content, {'value' : comment.content }) }}
+      {{ form_errors(formComments.content) }}
+    </div>
+    {{ form_widget(formComments.save, {'label' : 'Éditer'}) }}
+    {{ form_rest(formComments) }}
+    {{ form_end(formComments) }}
+  </div>
+{% endblock %}
