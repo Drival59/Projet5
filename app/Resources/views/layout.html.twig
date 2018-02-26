@@ -6,6 +6,7 @@
 
   <title>{% block title %}Full Metal Head{% endblock %}</title>
 
+  <link rel="icon" type="image/png" href="{{ asset('images/favicon-FMH.jpeg')}}" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Metal+Mania" rel="stylesheet">
@@ -85,12 +86,6 @@
                   <label for="">Mot de passe : </label>
                   <input type="password" class="form-control" name="password" placeholder="Votre mot de passe" required="required">
                 </div>
-                <br />
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="">Se souvenir de moi</label>
-                </div>
-                <br />
                 <button type="submit" class="btn btn-secondary">Connexion</button>
                 <br /><br />
                 {% for error in app.flashes('danger') %}

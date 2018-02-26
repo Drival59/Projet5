@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}{% endblock %}</title>
+  <title>Full Metal Head</title>
 
+  <link rel="icon" type="image/png" href="{{ asset('images/favicon-FMH.jpeg')}}" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Metal+Mania" rel="stylesheet">
@@ -77,35 +78,28 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="jumbotron">
-              <form id="formConnection" method="post">
-                <div class="form-group">
-                  <label for="">Adresse email : </label>
-                  <input type="email" class="form-control" name="email" placeholder="exemple@exemple.com" required="required">
+            <form id="formConnection" method="post">
+              <div class="form-group">
+                <label for="">Adresse email : </label>
+                <input type="email" class="form-control" name="email" placeholder="exemple@exemple.com" required>
+              </div>
+              <div class="form-group">
+                <label for="">Mot de passe : </label>
+                <input type="password" class="form-control" name="password" placeholder="Votre mot de passe" required>
+              </div>
+              <br />
+              <button type="submit" class="btn btn-secondary">Connexion</button>
+              <br /><br />
+              {% for error in app.flashes('danger') %}
+                {% set errorMessage = 1 %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ error }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-                <div class="form-group">
-                  <label for="">Mot de passe : </label>
-                  <input type="password" class="form-control" name="password" placeholder="Votre mot de passe" required="required">
-                </div>
-                <br />
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="">Se souvenir de moi</label>
-                </div>
-                <br />
-                <button type="submit" class="btn btn-secondary">Connexion</button>
-                <br /><br />
-                {% for error in app.flashes('danger') %}
-                  {% set errorMessage = 1 %}
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ error }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                {% endfor %}
-              </form>
-            </div>
+              {% endfor %}
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -123,11 +117,11 @@
   <footer id="footer-metal">
     <h3>Rejoignez-nous sur</h3>
     <div id="social-media">
-      <i class="fab fa-facebook-square fa-3x"></i>
-      <i class="fab fa-twitter-square fa-3x"></i>
-      <i class="fab fa-youtube-square fa-3x"></i>
-      <i class="fab fa-google-plus-square fa-3x"></i>
-      <i class="fab fa-soundcloud fa-3x"></i>
+      <a href=""><i class="fab fa-facebook-square fa-3x"></i></a>
+      <a href=""><i class="fab fa-twitter-square fa-3x"></i></a>
+      <a href=""><i class="fab fa-youtube-square fa-3x"></i></a>
+      <a href=""><i class="fab fa-google-plus-square fa-3x"></i></a>
+      <a href=""><i class="fab fa-soundcloud fa-3x"></i></a>
     </div>
     <p>Hanard Valentin <i class="fa fa-copyright" aria-hidden="true"></i> 2018</p>
   </footer>
