@@ -1,0 +1,54 @@
+{% extends "@HVUsers/layout.html.twig" %}
+
+{% block hvusers_body %}
+  <div id="adminBanner">
+    <div id="titleAdminBanner">
+      <h1>Full Metal Head</h1>
+      <p>Bienvenue dans la partie administration</p>
+    </div>
+  </div>
+  <div id="administration">
+
+    <h2>Administration des news</h2>
+    <div id="newsAdmin">
+      <div class="newsBlock">
+        <h4>Créer une actualité</h4>
+        <a href="{{ path('hv_news_createNew') }}"><button class="btn btn-dark btn-lg">Créer</button></a>
+      </div>
+      <div class="newsBlock">
+        <h4>Éditer une actualité</h4>
+        <form action="{{ path('hv_news_listnews') }}" method="post">
+          <select class="form-control">
+            {% for news in listNews %}
+              <option value="{{ news.id }}">{{ news.title }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Éditer</button>
+        </form>
+      </div>
+      <div class="newsBlock">
+        <h4>Supprimer une actualité</h4>
+        <form action="{{ path('hv_news_listnews') }}" method="post">
+          <select class="form-control">
+            {% for news in listNews %}
+              <option value="{{ news.id }}">{{ news.title }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Supprimer</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="commentAdmin">
+      <h2>Administration des commentaires</h2>
+    </div>
+    <div id="forumAdmin">
+      <h2>Administration du forum</h2>
+    </div>
+    <div id="usersAdmin">
+      <h2>Administration des membres</h2>
+    </div>
+  </div>
+{% endblock %}

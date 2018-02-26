@@ -12,3 +12,8 @@ hv_users_edit:
     path:     /edit/{login}
     defaults:
       _controller: HVUsersBundle:Users:edit
+
+hv_users_admin:
+    path:     /administration
+    defaults:
+      _controller: HVUsersBundle:Users:admin

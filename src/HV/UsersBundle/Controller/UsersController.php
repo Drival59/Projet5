@@ -52,7 +52,6 @@ class UsersController extends Controller
     ));
   }
 
-
   public function editAction($login, Request $request)
   {
     $em = $this->getDoctrine()->getManager();
@@ -110,11 +109,29 @@ class UsersController extends Controller
     ));
   }
 
-
   public function logoutAction()
   {
     $session = new Session();
     $session->clear();
+    return $this->redirectToRoute('hv_home_homepage');
+  }
+
+  public function adminAction(Request $request)
+  {
+    $session = $request->getSession();
+
+    if ($session->get('User') != null) {
+      if ($session->get('User')->getRights() == 1) {
+        $em = $this->getDoctrine()->getManager();
+        $listNews = $em->getRepository('HVNewsBundle:News')->findAll();
+
+        return $this->render('@HVUsers/Users/admin.html.twig', array(
+          'listNews' => $listNews,
+        ));
+      }
+    }
+
+
     return $this->redirectToRoute('hv_home_homepage');
   }
 }

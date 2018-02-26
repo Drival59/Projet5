@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}WebSiteName{% endblock %}</title>
+  <title>{% block title %}Full Metal Head{% endblock %}</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -34,7 +34,10 @@
               </a>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ path('hv_users_edit', {'login' : app.session.get('User').login}) }}"><img src="{{ asset('images/avatars/' ~ app.session.get('User').avatar) }}" alt="avatar profil" width="30px" /> Modifier profil</a>
-                <a class="dropdown-item" href="{{ path('hv_users_logout') }}"><i class="fas fa-sign-out-alt"></i></i> Deconnexion</a>
+                {% if app.session.get('User').rights == 1 %}
+                  <a class="dropdown-item" href="{{ path('hv_users_admin') }}"><i class="fas fa-unlock-alt"></i> Administration</a>
+                {% endif %}
+                <a class="dropdown-item" href="{{ path('hv_users_logout') }}"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
               </div>
             {% else %}
               <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

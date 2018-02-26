@@ -91,4 +91,9 @@ class NewsController extends Controller
         'formComments' =>$formComments->createView(),
       ));
     }
+
+    public function createNewAction(Request $request)
+    {
+      return $this->render('@HVNews/News/createNew.html.twig');
+    }
 }

@@ -9,3 +9,8 @@ hv_news_currentevents:
         _controller: HVNewsBundle:News:viewCurrentEvents
     requirements:
         id: \d+
+
+hv_news_createNew:
+    path: /createNew
+    defaults:
+      _controller: HVNewsBundle:News:createNew
