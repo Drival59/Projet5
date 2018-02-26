@@ -2,22 +2,22 @@
 
 {% block hvnews_body %}
   <br /><br />
-  <h1>Créer une actualité</h1>
+  <h1>Éditer une actualité</h1>
   <br />
-  <div id="createNewForm" class="jumbotron">
+  <div id="editNewForm" class="jumbotron">
     {{ form_start(formNew) }}
 
     {{ form_errors(formNew) }}
 
     <div class="form-group">
       {{ form_label(formNew.title, "Titre de l'actualité : (*)") }}
-      {{ form_widget(formNew.title) }}
+      {{ form_widget(formNew.title, {'value' : new.title }) }}
       {{ form_errors(formNew.title) }}
     </div>
 
     <div class="form-group">
       {{ form_label(formNew.content, "Contenu de l'actualité : (*)") }}
-      {{ form_widget(formNew.content, { 'attr': {'rows': '20'} }) }}
+      {{ form_widget(formNew.content, {'value' : new.content }) }}
       {{ form_errors(formNew.content) }}
     </div>
 
@@ -33,7 +33,7 @@
     </div>
 
     <br /><br />
-    {{ form_widget(formNew.save, {'label' : "Créer l'actu"}) }}
+    {{ form_widget(formNew.save, {'label' : "Éditer l'actu"}) }}
     {{ form_rest(formNew) }}
     {{ form_end(formNew) }}
   </div>

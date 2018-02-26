@@ -14,3 +14,13 @@ hv_news_createNew:
     path: /createNew
     defaults:
       _controller: HVNewsBundle:News:createNew
+
+hv_news_editNew:
+    path: /editNew
+    defaults:
+      _controller: HVNewsBundle:News:editNew
+
+hv_news_deleteNew:
+    path: /delete
+    defaults:
+      _controller: HVNewsBundle:News:deleteNew

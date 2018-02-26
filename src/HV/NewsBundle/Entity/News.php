@@ -3,6 +3,7 @@
 namespace HV\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * News
@@ -51,13 +52,21 @@ class News
     /**
      * @ORM\Column(name="in_carousel", type="boolean")
      */
-    private $inCarousel = false;
+    private $inCarousel;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_url", type="string", length=255)
-     */
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="image_url", type="string", length=255)
+      * @Assert\File(
+      *    mimeTypes={
+      *        "image/png",
+      *        "image/jpeg",
+      *        "image/jpg",
+      *        "image/bmp"
+      *    }
+      * )
+      */
     private $imageUrl;
 
     /**
@@ -71,6 +80,8 @@ class News
     {
       // Par défaut, la date de l'annonce est la date d'aujourd'hui
       $this->dateNews = new \Datetime();
+      $this->inCarousel = false;
+      $this->views = 0;
     }
 
     /**
@@ -180,30 +191,6 @@ class News
     }
 
     /**
-     * Set imageUrl
-     *
-     * @param string $imageUrl
-     *
-     * @return News
-     */
-    public function setImageUrl($imageUrl)
-    {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get imageUrl
-     *
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        return $this->imageUrl;
-    }
-
-    /**
      * Set users
      *
      * @param \HV\UsersBundle\Entity\Users $users
@@ -249,5 +236,29 @@ class News
     public function getViews()
     {
         return $this->views;
+    }
+
+    /**
+     * Set imageUrl
+     *
+     * @param string $imageUrl
+     *
+     * @return News
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageUrl
+     *
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
     }
 }

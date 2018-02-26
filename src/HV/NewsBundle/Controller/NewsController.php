@@ -2,10 +2,12 @@
 
 namespace HV\NewsBundle\Controller;
 
-
+use HV\NewsBundle\Entity\News;
 use HV\NewsBundle\Entity\Comments;
 use HV\UsersBundle\Form\UsersType;
 use HV\NewsBundle\Form\CommentsType;
+use HV\NewsBundle\Form\NewsType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,6 +96,93 @@ class NewsController extends Controller
 
     public function createNewAction(Request $request)
     {
-      return $this->render('@HVNews/News/createNew.html.twig');
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+
+      $addNew = new News();
+      $formNew = $this->createForm(NewsType::class, $addNew);
+
+      if ($formNew->handleRequest($request)->isValid()) {
+        $new = new News();
+        $new->setTitle($addNew->getTitle());
+        $new->setContent($addNew->getContent());
+        $new->setUsers($session->get('User'));
+        /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+        $file = $addNew->getImageUrl();
+        $fileName = $file->getClientOriginalName();
+        $file->move(
+          $this->getParameter('news_images_directory'),
+          $fileName
+        );
+        $new->setImageUrl($fileName);
+
+        if ($addNew->getInCarousel() != null) {
+          $new->setInCarousel($addNew->getInCarousel());
+        }
+
+        $em->merge($new);
+        $em->flush();
+        return $this->redirectToRoute('hv_users_admin');
+      }
+      return $this->render('@HVNews/News/createNew.html.twig', array(
+        'formNew' => $formNew->createView(),
+      ));
+    }
+
+    public function editNewAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+
+      $new = $em->getRepository('HVNewsBundle:News')->find($_GET['id']);
+
+      $editNew = new News();
+      $formNew = $this->createForm(NewsType::class, $editNew);
+      $formNew->remove('imageUrl');
+      $formNew->add('imageUrl', FileType::class, array(
+        'required' => false,
+      ));
+
+      if ($formNew->handleRequest($request)->isValid()) {
+        $new->setTitle($editNew->getTitle());
+        $new->setContent($editNew->getContent());
+
+        if ($editNew->getImageUrl() != null) {
+          /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+          $file = $editNew->getImageUrl();
+          $fileName = $file->getClientOriginalName();
+          $file->move(
+            $this->getParameter('news_images_directory'),
+            $fileName
+          );
+          $new->setImageUrl($fileName);
+        }
+
+        if ($editNew->getInCarousel() != null) {
+          $new->setInCarousel($editNew->getInCarousel());
+        } else {
+          $new->setInCarousel(0);
+        }
+
+        $em->merge($new);
+        $em->flush();
+        return $this->redirectToRoute('hv_users_admin');
+      }
+
+      return $this->render('@HVNews/News/editNew.html.twig', array(
+        'formNew' => $formNew->createView(),
+        'new' => $new,
+      ));
+    }
+
+    public function deleteNewAction()
+    {
+      $em = $this->getDoctrine()->getManager();
+      $new = $em->getRepository('HVNewsBundle:News')->find($_GET['id']);
+      if ($new != null) {
+        $em->remove($new);
+        $em->flush();
+      }
+      return $this->redirectToRoute('hv_users_admin');
     }
 }

@@ -158,6 +158,12 @@
   margin-top: 10px;
 }
 
+#createNewForm, #editNewForm
+{
+  max-width: 1200px;
+  margin: auto;
+  text-align: left;
+}
 @media (max-width: 960px) {
   #titleNewsBanner
   {

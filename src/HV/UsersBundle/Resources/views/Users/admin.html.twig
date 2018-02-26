@@ -9,7 +9,7 @@
   </div>
   <div id="administration">
 
-    <h2>Administration des news</h2>
+    <h2>Administration des news</h2><hr />
     <div id="newsAdmin">
       <div class="newsBlock">
         <h4>Créer une actualité</h4>
@@ -17,8 +17,8 @@
       </div>
       <div class="newsBlock">
         <h4>Éditer une actualité</h4>
-        <form action="{{ path('hv_news_listnews') }}" method="post">
-          <select class="form-control">
+        <form action="{{ path('hv_news_editNew') }}">
+          <select class="form-control" name="id">
             {% for news in listNews %}
               <option value="{{ news.id }}">{{ news.title }}</option>
             {% endfor %}
@@ -29,8 +29,8 @@
       </div>
       <div class="newsBlock">
         <h4>Supprimer une actualité</h4>
-        <form action="{{ path('hv_news_listnews') }}" method="post">
-          <select class="form-control">
+        <form action="{{ path('hv_news_deleteNew') }}">
+          <select class="form-control" name="id">
             {% for news in listNews %}
               <option value="{{ news.id }}">{{ news.title }}</option>
             {% endfor %}
