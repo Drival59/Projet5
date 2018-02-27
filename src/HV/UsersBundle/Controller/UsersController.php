@@ -7,7 +7,6 @@ use HV\UsersBundle\Form\UsersType;
 use HV\UsersBundle\Form\UsersAvatarType;
 use HV\UsersBundle\Form\UsersPwdType;
 use HV\UsersBundle\Form\UsersEmailType;
-use HV\UsersBundle\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,32 +18,35 @@ class UsersController extends Controller
 {
   public function registrationAction(Request $request)
   {
-    $repository = $this->getDoctrine()->getManager();
+    $em = $this->getDoctrine()->getManager();
 
-    $formUsers = $this->createForm(UsersType::class, new Users());
+    $user = new Users();
+    $formUsers = $this->createForm(UsersType::class, $user);
     $formUsers->remove('avatar');
 
     if ($formUsers->handleRequest($request)->isValid()) {
       $newUser = new Users();
-      $newUser->setLogin($_POST['hv_usersbundle_users']['login']);
-      $newUser->setPassword(password_hash($_POST['hv_usersbundle_users']['password'], PASSWORD_DEFAULT));
-      $newUser->setEmail($_POST['hv_usersbundle_users']['email']);
+      $newUser->setLogin($user->getLogin());
+      $newUser->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+      $newUser->setEmail($user->getEmail());
       $newUser->setAvatar("defaults_avatar_059_metal.jpg");
-      $repository->persist($newUser);
-      $repository->flush();
+      $em->persist($newUser);
+      $em->flush();
+      $session = new Session();
+      $session->set('User', $newUser);
       return $this->redirectToRoute('hv_home_homepage');
     }
+
     if (isset($_POST['email']) AND isset($_POST['password'])) {
-      $connection = $repository->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+      $connection = $em->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
       if ($connection != false) {
         $session = new Session();
         $session->set('User', $connection);
-        return $this->redirectToRoute('hv_news_currentevents', array(
-        'id' => $id));
-      } else {
-        $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
         return $this->redirectToRoute('hv_users_registration');
       }
+
+      $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+      return $this->redirectToRoute('hv_users_registration');
     }
 
     return $this->render('@HVUsers/Users/registration.html.twig', array(
@@ -120,17 +122,20 @@ class UsersController extends Controller
   {
     $session = $request->getSession();
 
-    if ($session->get('User') != null) {
-      if ($session->get('User')->getRights() == 1) {
-        $em = $this->getDoctrine()->getManager();
-        $listNews = $em->getRepository('HVNewsBundle:News')->findAll();
+    if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+      $em = $this->getDoctrine()->getManager();
+      $listNews = $em->getRepository('HVNewsBundle:News')->findAll();
+      $listCategories = $em->getRepository('HVForumBundle:ForumCategory')->findAll();
+      $listSections = $em->getRepository('HVForumBundle:ForumSection')->findAll();
+      $listUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
 
-        return $this->render('@HVUsers/Users/admin.html.twig', array(
-          'listNews' => $listNews,
-        ));
-      }
+      return $this->render('@HVUsers/Users/admin.html.twig', array(
+        'listNews' => $listNews,
+        'listCategories' => $listCategories,
+        'listSections' => $listSections,
+        'listUsers' => $listUsers,
+      ));
     }
-
 
     return $this->redirectToRoute('hv_home_homepage');
   }

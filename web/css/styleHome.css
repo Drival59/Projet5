@@ -51,10 +51,6 @@
   padding: 100px;
   margin-bottom: 20px;
 }
-.lastPost a
-{
-  color: inherit;
-}
 .lastPost a:hover
 {
   text-decoration: none;
@@ -110,10 +106,6 @@
   transition-property: height, width, background, color;
   transition-duration: 0.3s;
   font-size: 2em;
-}
-#clickForum a:hover
-{
-  color: red;
 }
 #clickForum:hover
 {

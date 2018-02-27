@@ -44,7 +44,7 @@
             <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
             <p>{{ comment.content }}</p>
           </div>
-          {% if app.session.get('User').id == comment.users.id %}
+          {% if app.session.get('User') != null and app.session.get('User').id == comment.users.id %}
             <a href="{{ path('hv_news_editComment', {'id': comment.id}) }}"><button class="btn btn-dark"><i class="fas fa-pen-square"></i></button></a>
             <a href="{{ path('hv_news_deleteComment', {'id': comment.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
           {% endif %}

@@ -1,21 +1,21 @@
 {% extends "@HVUsers/layout.html.twig" %}
 
 {% block hvusers_body %}
-  <div id="adminBanner">
-    <div id="titleAdminBanner">
+  <div id="adminBanner" class="banner">
+    <div class="titleBanner">
       <h1>Full Metal Head</h1>
       <p>Bienvenue dans la partie administration</p>
     </div>
   </div>
-  <div id="administration">
+  <div class="container">
 
     <h2>Administration des news</h2><hr />
-    <div id="newsAdmin">
-      <div class="newsBlock">
+    <div class="blockAdmin">
+      <div class="block">
         <h4>Créer une actualité</h4>
         <a href="{{ path('hv_news_createNew') }}"><button class="btn btn-dark btn-lg">Créer</button></a>
       </div>
-      <div class="newsBlock">
+      <div class="block">
         <h4>Éditer une actualité</h4>
         <form action="{{ path('hv_news_editNew') }}">
           <select class="form-control" name="id">
@@ -27,7 +27,7 @@
           <button type="submit" class="btn btn-dark">Éditer</button>
         </form>
       </div>
-      <div class="newsBlock">
+      <div class="block">
         <h4>Supprimer une actualité</h4>
         <form action="{{ path('hv_news_deleteNew') }}">
           <select class="form-control" name="id">
@@ -42,8 +42,8 @@
     </div>
 
     <h2>Administration des commentaires</h2><hr />
-    <div id="commentAdmin">
-      <div class="commentsBlock">
+    <div class="blockAdmin">
+      <div class="block" style="margin:auto;margin-top:25px;">
       <h4>Afficher des commentaires</h4>
       <form action="{{ path('hv_news_adminComment') }}">
         <select class="form-control" name="id">
@@ -56,11 +56,83 @@
       </form>
       </div>
     </div>
-    <div id="forumAdmin">
-      <h2>Administration du forum</h2>
+
+    <h2>Administration du forum</h2><hr />
+    <div class="blockAdmin">
+      <div class="block">
+        <h4>Créer une catégorie</h4>
+        <a href=""><button class="btn btn-dark btn-lg">Créer</button></a>
+      </div>
+      <div class="block">
+        <h4>Éditer une catégorie</h4>
+        <form action="">
+          <select class="form-control" name="id">
+            {% for category in listCategories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Éditer</button>
+        </form>
+      </div>
+      <div class="block">
+        <h4>Supprimer une catégorie</h4>
+        <form action="">
+          <select class="form-control" name="id">
+            {% for category in listCategories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Supprimer</button>
+        </form>
+      </div>
     </div>
-    <div id="usersAdmin">
-      <h2>Administration des membres</h2>
+    <div class="blockAdmin">
+      <div class="block">
+        <h4>Créer une section</h4>
+        <a href=""><button class="btn btn-dark btn-lg">Créer</button></a>
+      </div>
+      <div class="block">
+        <h4>Éditer une section</h4>
+        <form action="">
+          <select class="form-control" name="id">
+            {% for section in listSections %}
+              <option value="{{ section.id }}">{{ section.name }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Éditer</button>
+        </form>
+      </div>
+      <div class="block">
+        <h4>Supprimer une section</h4>
+        <form action="">
+          <select class="form-control" name="id">
+            {% for section in listSections %}
+              <option value="{{ section.id }}">{{ section.name }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Supprimer</button>
+        </form>
+      </div>
+    </div>
+
+    <h2>Administration des membres</h2><hr />
+    <div class="blockAdmin">
+      <div class="block">
+        <h4>Supprimer un membre</h4>
+        <form action="">
+          <select class="form-control" name="id">
+            {% for users in listUsers %}
+              <option value="{{ users.id }}">{{ users.login }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Supprimer</button>
+        </form>
+      </div>
     </div>
   </div>
 {% endblock %}

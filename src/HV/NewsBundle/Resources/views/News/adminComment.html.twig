@@ -3,22 +3,26 @@
 {% block hvnews_body %}
   <div class="container" style="min-height:400px"><br /><br />
     <h1>Administration des commentaires</h1><br /><br />
-    {% for comment in comments %}
-      {% if comment.reports > 0 %}
-        <div class="commentCurrentEvent" style="background-color:#c33b3b">
+    {% if comments is not empty %}
+      {% for comment in comments %}
+        {% if comment.reports > 0 %}
+          <div class="commentCurrentEvent" style="background-color:#c33b3b">
+        {% else %}
+          <div class="commentCurrentEvent">
+        {% endif %}
+          <div class="avatarComment">
+            <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
+          </div>
+          <div class="commentContent">
+            <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
+            <p>{{ comment.content }}</p>
+          </div>
+            <a href="{{ path('hv_news_editComment', {'id': comment.id}) }}"><button class="btn btn-dark"><i class="fas fa-pen-square"></i></button></a>
+            <a href="{{ path('hv_news_deleteComment', {'id': comment.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+        </div>
+      {% endfor %}
       {% else %}
-        <div class="commentCurrentEvent">
+        <h2>Aucuns commentaires à administrer</h2>
       {% endif %}
-        <div class="avatarComment">
-          <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
-        </div>
-        <div class="commentContent">
-          <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
-          <p>{{ comment.content }}</p>
-        </div>
-          <a href="{{ path('hv_news_editComment', {'id': comment.id}) }}"><button class="btn btn-dark"><i class="fas fa-pen-square"></i></button></a>
-          <a href="{{ path('hv_news_deleteComment', {'id': comment.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
-      </div>
-    {% endfor %}
   </div><br /><br />
 {% endblock %}

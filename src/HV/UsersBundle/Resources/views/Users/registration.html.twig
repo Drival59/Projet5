@@ -1,49 +1,56 @@
 {% extends "@HVUsers/layout.html.twig" %}
 
 {% block hvusers_body %}
-  <br /><br />
-  <h1>Création d'un nouveau compte</h1>
-  <div id="registrationForm" class="jumbotron">
-    {{ form_start(formUsers) }}
-
-    {{ form_errors(formUsers) }}
-
-    <div class="form-group">
-      {{ form_label(formUsers.login, "Nom d'utilisateur : (*)") }}
-      {{ form_widget(formUsers.login) }}
-      {{ form_errors(formUsers.login) }}
+  <div id="registrationBanner" class="banner">
+    <div class="titleBanner">
+      <h1>Full Metal Head</h1>
+      <p>Rejoins le cercle des metalleux</p>
     </div>
-
-    <div class="form-group row">
-      <div class="col">
-        {{ form_label(formUsers.password, "Mot de passe : (*)") }}
-        {{ form_widget(formUsers.password) }}
-        {{ form_errors(formUsers.password) }}
-      </div>
-      <div class="col">
-        {{ form_label(formUsers.confirmPassword, "Confirmer le mot de passe : (*)") }}
-        {{ form_widget(formUsers.confirmPassword) }}
-        {{ form_errors(formUsers.confirmPassword) }}
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="col">
-        {{ form_label(formUsers.email, "Adresse email : (*)") }}
-        {{ form_widget(formUsers.email) }}
-        {{ form_errors(formUsers.email) }}
-      </div>
-      <div class="col">
-        {{ form_label(formUsers.confirmEmail, "Confirmer l'adresse email : (*)") }}
-        {{ form_widget(formUsers.confirmEmail) }}
-        {{ form_errors(formUsers.confirmEmail) }}
-      </div>
-    </div>
-    <br /><br />
-    {{ form_widget(formUsers.save, {'label' : 'Inscription'}) }}
-
-    {{ form_rest(formUsers) }}
-    {{ form_end(formUsers) }}
   </div>
+    <div class="container">
+      <h1>Création d'un nouveau compte</h1>
+      <div class="jumbotron formHV">
+        {{ form_start(formUsers) }}
 
+        {{ form_errors(formUsers) }}
+
+        <div class="form-group">
+          {{ form_label(formUsers.login, "Nom d'utilisateur : (*)") }}
+          {{ form_widget(formUsers.login) }}
+          {{ form_errors(formUsers.login) }}
+        </div>
+
+        <div class="form-group row">
+          <div class="col">
+            {{ form_label(formUsers.password, "Mot de passe : (*)") }}
+            {{ form_widget(formUsers.password) }}
+            {{ form_errors(formUsers.password) }}
+          </div>
+          <div class="col">
+            {{ form_label(formUsers.confirmPassword, "Confirmer le mot de passe : (*)") }}
+            {{ form_widget(formUsers.confirmPassword) }}
+            {{ form_errors(formUsers.confirmPassword) }}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col">
+            {{ form_label(formUsers.email, "Adresse email : (*)") }}
+            {{ form_widget(formUsers.email) }}
+            {{ form_errors(formUsers.email) }}
+          </div>
+          <div class="col">
+            {{ form_label(formUsers.confirmEmail, "Confirmer l'adresse email : (*)") }}
+            {{ form_widget(formUsers.confirmEmail) }}
+            {{ form_errors(formUsers.confirmEmail) }}
+          </div>
+        </div>
+        <br /><br />
+        {{ form_widget(formUsers.save, {'label' : 'Inscription'}) }}
+
+        {{ form_rest(formUsers) }}
+        {{ form_end(formUsers) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}
