@@ -1,0 +1,14 @@
+{% extends "@HVForum/layout.html.twig "%}
+
+{% block hvforum_body %}
+  <div class="container">
+    <h2>Creation d'une section</h2>
+    <form class="formHV" method="post">
+      <div class="form-group">
+        <label>Titre de la section :</label>
+        <input type="text" class="form-control" name="titleSection" required>
+      </div>
+      <button type="submit" class="btn btn-dark">Créer</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,17 +1,17 @@
 {% extends "@HVForum/layout.html.twig" %}
 
 {% block hvforum_body %}
-  <div id="forumTable">
+  <div class="container">
     {% for category in listCategory %}
       <h2>{{ category.name }}</h2><hr />
       <table class="table table-bordered">
         <thead class="thead-dark">
           <tr>
-            <th class="col-lg-1"></th>
-            <th class="col-lg-5">Forum</th>
-            <th class="col-lg-4">Dernier message</th>
-            <th class="col-lg-1" style="text-align:center">Sujets</th>
-            <th class="col-lg-1" style="text-align:center">Posts</th>
+            <th style="width:70px"></th>
+            <th style="width:600px">Forum</th>
+            <th>Dernier message</th>
+            <th style="text-align:center">Sujets</th>
+            <th style="text-align:center">Posts</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +69,7 @@
           {% endfor %}
         </tbody>
       </table>
+      <br />
     {% endfor %}
   </div>
 

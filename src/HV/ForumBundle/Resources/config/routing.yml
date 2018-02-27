@@ -44,3 +44,33 @@ hv_forum_post_delete:
     requirements:
         id: \d+
         idPost: \d+
+
+hv_forum_category_create:
+    path: /category/create
+    defaults:
+      _controller: HVForumBundle:Forum:createCategory
+
+hv_forum_category_delete:
+    path: /category/delete
+    defaults:
+      _controller: HVForumBundle:Forum:deleteCategory
+
+hv_forum_category_edit:
+    path: /category/edit
+    defaults:
+      _controller: HVForumBundle:Forum:editCategory
+
+hv_forum_section_create:
+    path: /section/create
+    defaults:
+      _controller: HVForumBundle:Forum:createSection
+
+hv_forum_section_delete:
+    path: /section/delete
+    defaults:
+      _controller: HVForumBundle:Forum:deleteSection
+
+hv_forum_section_edit:
+    path: /section/edit
+    defaults:
+      _controller: HVForumBundle:Forum:editSection

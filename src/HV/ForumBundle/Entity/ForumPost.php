@@ -38,13 +38,13 @@ class ForumPost
 
     /**
     * @ORM\ManyToOne(targetEntity="HV\UsersBundle\Entity\Users")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
     */
     private $users;
 
     /**
     * @ORM\ManyToOne(targetEntity="HV\ForumBundle\Entity\ForumTopic")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
     */
     private $forumTopic;
 

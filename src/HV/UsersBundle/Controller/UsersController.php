@@ -139,4 +139,16 @@ class UsersController extends Controller
 
     return $this->redirectToRoute('hv_home_homepage');
   }
+
+  public function deleteAction(Request $request)
+  {
+    $session = $request->getSession();
+    $em = $this->getDoctrine()->getManager();
+    if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+      $user = $em->getRepository('HVUsersBundle:Users')->find($_GET['id']);
+      $em->remove($user);
+      $em->flush();
+    }
+    return $this->redirectToRoute('hv_users_admin');
+  }
 }

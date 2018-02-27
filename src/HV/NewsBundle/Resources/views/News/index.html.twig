@@ -41,15 +41,8 @@
       </div>
 
       <div id="widgets">
-        <div id="search">
-          <h3>Rechercher dans l'actu<h3>
-          <div id="searchNewsInput" class="form-group">
-            <input type="text" class="form-control" id="usr">
-            <button class="btn btn-light"><i class="fa fa-search" aria-hidden="true"></i></button>
-          </div>
-        </div>
         <div id="popularNews">
-          <h3>Les actualités populaires</h3>
+          <h3>Les actualités populaires</h3><br />
           {% for popularNew in popularNews %}
             <p><a href="{{path('hv_news_currentevents', {'id' : popularNew.id }) }}">{{ popularNew.title }}</a></p>
           {% endfor %}
@@ -67,6 +60,6 @@
         </a>
       </div>
     {% endfor %}
-    
+
   </div>
 {% endblock %}

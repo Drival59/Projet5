@@ -1,0 +1,14 @@
+{% extends "@HVForum/layout.html.twig "%}
+
+{% block hvforum_body %}
+  <div class="container">
+    <h2>Édition d'une catégorie</h2>
+    <form class="formHV" method="post">
+      <div class="form-group">
+        <label>Titre de la catégorie :</label>
+        <input type="text" class="form-control" name="titleCategory" value="{{category.name}}" required>
+      </div>
+      <button type="submit" class="btn btn-dark">Éditer</button>
+    </form>
+  </div>
+{% endblock %}

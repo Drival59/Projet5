@@ -3,6 +3,7 @@
 namespace HV\ForumBundle\Controller;
 
 use HV\ForumBundle\Entity\ForumCategory;
+use HV\ForumBundle\Entity\ForumSection;
 use HV\ForumBundle\Entity\ForumTopic;
 use HV\ForumBundle\Entity\ForumPost;
 use HV\ForumBundle\Entity\ForumTopicView;
@@ -267,5 +268,119 @@ class ForumController extends Controller
         'url' => $url,
         'id' => $id,
       ));
+    }
+
+    public function createCategoryAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+
+        if ($request->isMethod('POST')) {
+          $newCategory = new ForumCategory();
+          $newCategory->setName($_POST['titleCategory']);
+          $em->merge($newCategory);
+          $em->flush();
+
+          $category = $em->getRepository('HVForumBundle:ForumCategory')->findOneByName($_POST['titleCategory']);
+          $newSection = new ForumSection();
+          $newSection->setName($_POST['titleSection']);
+          $url = str_replace(' ','_', $_POST['titleSection']);
+          $newSection->setUrl($url);
+          $newSection->setForumCategory($category);
+          $em->merge($newSection);
+          $em->flush();
+
+          return $this->redirectToRoute('hv_users_admin');
+        }
+        return $this->render('@HVForum/Forum/createCategory.html.twig');
+      }
+       return $this->redirectToRoute('hv_forum_homepage');
+    }
+
+    public function deleteCategoryAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $category = $em->getRepository('HVForumBundle:ForumCategory')->find($_GET['id']);
+        $em->remove($category);
+        $em->flush();
+      }
+      return $this->redirectToRoute('hv_users_admin');
+    }
+
+    public function editCategoryAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $category = $em->getRepository('HVForumBundle:ForumCategory')->find($_GET['id']);
+
+        if ($request->isMethod('POST')) {
+          $category->setName($_POST['titleCategory']);
+          $em->merge($category);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
+        }
+
+        return $this->render('@HVForum/Forum/editCategory.html.twig', array(
+          'category' => $category,
+        ));
+      }
+    }
+
+    public function createSectionAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+
+        if ($request->isMethod('POST')) {
+          $category = $em->getRepository('HVForumBundle:ForumCategory')->find($_GET['id']);
+          $newSection = new ForumSection();
+          $newSection->setName($_POST['titleSection']);
+          $url = str_replace(' ','_', $_POST['titleSection']);
+          $newSection->setUrl($url);
+          $newSection->setForumCategory($category);
+          $em->merge($newSection);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
+        }
+        return $this->render('@HVForum/Forum/createSection.html.twig');
+      }
+      return $this->redirectToRoute('hv_users_admin');
+    }
+
+    public function deleteSectionAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $section = $em->getRepository('HVForumBundle:ForumSection')->find($_GET['id']);
+        $em->remove($section);
+        $em->flush();
+      }
+      return $this->redirectToRoute('hv_users_admin');
+    }
+
+    public function editSectionAction(Request $request)
+    {
+      $session = $request->getSession();
+      $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $section = $em->getRepository('HVForumBundle:ForumSection')->find($_GET['id']);
+
+        if ($request->isMethod('POST')) {
+          $section->setName($_POST['titleSection']);
+          $em->merge($section);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
+        }
+
+        return $this->render('@HVForum/Forum/editSection.html.twig', array(
+          'section' => $section,
+        ));
+      }
     }
 }

@@ -31,7 +31,7 @@ class News
 
     /**
      * @ORM\ManyToOne(targetEntity="HV\UsersBundle\Entity\Users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $users;
 

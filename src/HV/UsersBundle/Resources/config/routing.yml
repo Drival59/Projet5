@@ -17,3 +17,8 @@ hv_users_admin:
     path:     /administration
     defaults:
       _controller: HVUsersBundle:Users:admin
+
+hv_users_delete:
+    path: /delete
+    defaults:
+      _controller: HVUsersBundle:Users:delete

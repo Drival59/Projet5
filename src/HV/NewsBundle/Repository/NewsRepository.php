@@ -44,7 +44,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
   {
     $qb = $this->createQueryBuilder('n');
     $qb->orderBy('n.views', 'DESC');
-    $qb->setMaxResults(4);
+    $qb->setMaxResults(6);
     return $qb
       ->getQuery()
       ->getResult()

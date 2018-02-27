@@ -61,11 +61,11 @@
     <div class="blockAdmin">
       <div class="block">
         <h4>Créer une catégorie</h4>
-        <a href=""><button class="btn btn-dark btn-lg">Créer</button></a>
+        <a href="{{ path('hv_forum_category_create') }}"><button class="btn btn-dark btn-lg">Créer</button></a>
       </div>
       <div class="block">
         <h4>Éditer une catégorie</h4>
-        <form action="">
+        <form action="{{ path('hv_forum_category_edit') }}">
           <select class="form-control" name="id">
             {% for category in listCategories %}
               <option value="{{ category.id }}">{{ category.name }}</option>
@@ -77,7 +77,7 @@
       </div>
       <div class="block">
         <h4>Supprimer une catégorie</h4>
-        <form action="">
+        <form action="{{ path('hv_forum_category_delete') }}">
           <select class="form-control" name="id">
             {% for category in listCategories %}
               <option value="{{ category.id }}">{{ category.name }}</option>
@@ -91,11 +91,19 @@
     <div class="blockAdmin">
       <div class="block">
         <h4>Créer une section</h4>
-        <a href=""><button class="btn btn-dark btn-lg">Créer</button></a>
+        <form action="{{ path('hv_forum_section_create') }}">
+          <select class="form-control" name="id">
+            {% for category in listCategories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          <br />
+          <button type="submit" class="btn btn-dark">Éditer</button>
+        </form>
       </div>
       <div class="block">
         <h4>Éditer une section</h4>
-        <form action="">
+        <form action="{{ path('hv_forum_section_edit') }}">
           <select class="form-control" name="id">
             {% for section in listSections %}
               <option value="{{ section.id }}">{{ section.name }}</option>
@@ -107,7 +115,7 @@
       </div>
       <div class="block">
         <h4>Supprimer une section</h4>
-        <form action="">
+        <form action="{{ path('hv_forum_section_delete') }}">
           <select class="form-control" name="id">
             {% for section in listSections %}
               <option value="{{ section.id }}">{{ section.name }}</option>
@@ -123,7 +131,7 @@
     <div class="blockAdmin">
       <div class="block">
         <h4>Supprimer un membre</h4>
-        <form action="">
+        <form action="{{ path('hv_users_delete') }}">
           <select class="form-control" name="id">
             {% for users in listUsers %}
               <option value="{{ users.id }}">{{ users.login }}</option>

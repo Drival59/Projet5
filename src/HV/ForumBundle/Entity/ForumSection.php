@@ -23,7 +23,7 @@ class ForumSection
 
     /**
      * @ORM\ManyToOne(targetEntity="HV\ForumBundle\Entity\ForumCategory")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $forumCategory;
 
