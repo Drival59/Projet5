@@ -78,7 +78,6 @@ a:hover
 }
 .buttonForum
 {
-  min-width: 275px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }

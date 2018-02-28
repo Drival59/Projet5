@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ForumController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
       $listCategory = $em->getRepository('HVForumBundle:ForumCategory')->findAll();
@@ -22,6 +22,18 @@ class ForumController extends Controller
       $listTopic = $em->getRepository('HVForumBundle:ForumTopic')->findAll();
       $listTopicView = $em->getRepository('HVForumBundle:ForumTopicView')->findAll();
       $listPost = $em->getRepository('HVForumBundle:ForumPost')->findAll();
+
+      if ($request->isMethod('POST')) {
+        $connection = $em->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+        if ($connection != false) {
+          $session = new Session();
+          $session->set('User', $connection);
+          return $this->redirectToRoute('hv_forum_homepage');
+        }
+        $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+        return $this->redirectToRoute('hv_forum_homepage');
+      }
+
       return $this->render('@HVForum/Forum/index.html.twig', array(
         'listCategory' => $listCategory,
         'listSection' => $listSection,
@@ -31,7 +43,7 @@ class ForumController extends Controller
       ));
     }
 
-    public function viewSectionAction($url)
+    public function viewSectionAction(Request $request, $url)
     {
       $em = $this->getDoctrine()->getManager();
       $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
@@ -44,6 +56,22 @@ class ForumController extends Controller
       $listTopicView = $em->getRepository('HVForumBundle:ForumTopicView')->findAll();
       $listTopic = $em->getRepository('HVForumBundle:ForumTopic')->myFindByForumSection($section[0]->getId());
       $listPost = $em->getRepository('HVForumBundle:ForumPost')->findAll();
+
+      if ($request->isMethod('POST')) {
+        $connection = $em->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+        if ($connection != false) {
+          $session = new Session();
+          $session->set('User', $connection);
+          return $this->redirectToRoute('hv_forum_section', array(
+            'url' => $url,
+          ));
+        }
+        $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+        return $this->redirectToRoute('hv_forum_section', array(
+          'url' => $url,
+        ));
+      }
+
       return $this->render('@HVForum/Forum/viewSection.html.twig', array(
         'listTopic' => $listTopic,
         'listPost' => $listPost,
@@ -96,6 +124,23 @@ class ForumController extends Controller
         ),
       );
 
+      if ($request->isMethod('POST')) {
+        $connection = $em->getRepository('HVUsersBundle:Users')->getConnection($_POST['email'], $_POST['password']);
+        if ($connection != false) {
+          $session = new Session();
+          $session->set('User', $connection);
+          return $this->redirectToRoute('hv_forum_topic', array(
+            'url' => $url,
+            'id' => $id,
+          ));
+        }
+        $this->addFlash('danger', 'Identifiant ou mot de passe incorrects');
+        return $this->redirectToRoute('hv_forum_topic', array(
+          'url' => $url,
+          'id' => $id,
+        ));
+      }
+
       return $this->render('@HVForum/Forum/viewTopic.html.twig', array(
         'listPost' => $listPost,
         'nameTopic' => $topic->getSubject(),
@@ -109,165 +154,178 @@ class ForumController extends Controller
     {
       $em = $this->getDoctrine()->getManager();
       $session = $request->getSession();
-      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+      if ($session->get('User') != null ) {
+        $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
 
-      if (!$section) {
-        throw $this->createNotFoundException(
-            'Aucune section disponible avec l\'url suivant : '.$url
-        );
-      }
-
-      if ($request->isMethod('POST')) {
-        $newTopic = new ForumTopic();
-        $newTopic->setSubject($_POST['topicTitle']);
-        $newTopic->setForumSection($section[0]);
-        $newTopic->setUsers($session->get('User'));
-        $em->merge($newTopic);
-        $em->flush();
-
-        $newTopic = $em->getRepository('HVForumBundle:ForumTopic')->findByDateLastPost($newTopic->getDateLastPost());
-
-        $newPost = new ForumPost();
-        $newPost->setContent($_POST['topicContent']);
-        $newPost->setUsers($session->get('User'));
-        $newPost->setForumTopic($newTopic[0]);
-        $em->merge($newPost);
-        $em->flush();
-
-        $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
-
-        foreach ($allUsers as $user) {
-          if ($user->getId() != $session->get('User')->getId()) {
-            $topicView = new ForumTopicView();
-            $topicView->setUsers($user);
-            $topicView->setForumTopic($newTopic[0]);
-            $em->merge($topicView);
-            $em->flush();
-          }
+        if (!$section) {
+          throw $this->createNotFoundException(
+              'Aucune section disponible avec l\'url suivant : '.$url
+          );
         }
-        return $this->redirectToRoute('hv_forum_section', array(
-          'url' => $url,
+
+        if ($request->isMethod('POST')) {
+          $newTopic = new ForumTopic();
+          $newTopic->setSubject($_POST['topicTitle']);
+          $newTopic->setForumSection($section[0]);
+          $newTopic->setUsers($session->get('User'));
+          $em->merge($newTopic);
+          $em->flush();
+
+          $newTopic = $em->getRepository('HVForumBundle:ForumTopic')->findByDateLastPost($newTopic->getDateLastPost());
+
+          $newPost = new ForumPost();
+          $newPost->setContent($_POST['topicContent']);
+          $newPost->setUsers($session->get('User'));
+          $newPost->setForumTopic($newTopic[0]);
+          $em->merge($newPost);
+          $em->flush();
+
+          $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
+
+          foreach ($allUsers as $user) {
+            if ($user->getId() != $session->get('User')->getId()) {
+              $topicView = new ForumTopicView();
+              $topicView->setUsers($user);
+              $topicView->setForumTopic($newTopic[0]);
+              $em->merge($topicView);
+              $em->flush();
+            }
+          }
+          return $this->redirectToRoute('hv_forum_section', array(
+            'url' => $url,
+          ));
+        }
+        return $this->render('@HVForum/Forum/createTopic.html.twig', array(
+          'urlSection' => $url,
         ));
       }
-      return $this->render('@HVForum/Forum/createTopic.html.twig', array(
-        'urlSection' => $url,
-      ));
+      return $this->redirectToRoute('hv_forum_homepage');
     }
 
     public function addPostAction(Request $request, $url, $id)
     {
       $em = $this->getDoctrine()->getManager();
       $session = $request->getSession();
-
-      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
-      if (!$section) {
-        throw $this->createNotFoundException(
-            'Aucune section disponible avec l\'url suivant : '.$url
-        );
-      }
-
-      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
-      if (!$topic) {
-        throw $this->createNotFoundException(
-            'Aucun topic disponible avec l\'id suivant : '.$id
-        );
-      }
-
-      if ($request->isMethod('POST')) {
-        $newPost = new ForumPost();
-        $newPost->setContent($_POST['postContent']);
-        $newPost->setUsers($session->get('User'));
-        $newPost->setForumTopic($topic);
-        $em->merge($newPost);
-        $em->flush();
-
-        $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
-
-        foreach ($allUsers as $user) {
-          if ($user->getId() != $session->get('User')->getId()) {
-            $topicView = new ForumTopicView();
-            $topicView->setUsers($user);
-            $topicView->setForumTopic($topic);
-            $em->merge($topicView);
-            $em->flush();
-          }
+      if ($session->get('User') != null ) {
+        $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+        if (!$section) {
+          throw $this->createNotFoundException(
+              'Aucune section disponible avec l\'url suivant : '.$url
+          );
         }
-        return $this->redirectToRoute('hv_forum_topic', array(
-          'url' => $url,
-          'id' => $id,
+
+        $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+        if (!$topic) {
+          throw $this->createNotFoundException(
+              'Aucun topic disponible avec l\'id suivant : '.$id
+          );
+        }
+
+        if ($request->isMethod('POST')) {
+          $newPost = new ForumPost();
+          $newPost->setContent($_POST['postContent']);
+          $newPost->setUsers($session->get('User'));
+          $newPost->setForumTopic($topic);
+          $em->merge($newPost);
+          $em->flush();
+
+          $allUsers = $em->getRepository('HVUsersBundle:Users')->findAll();
+
+          foreach ($allUsers as $user) {
+            if ($user->getId() != $session->get('User')->getId()) {
+              $topicView = new ForumTopicView();
+              $topicView->setUsers($user);
+              $topicView->setForumTopic($topic);
+              $em->merge($topicView);
+              $em->flush();
+            }
+          }
+          return $this->redirectToRoute('hv_forum_topic', array(
+            'url' => $url,
+            'id' => $id,
+          ));
+        }
+
+        return $this->render('@HVForum/Forum/addPost.html.twig', array(
+          'urlSection' => $url,
+          'idTopic' => $id,
         ));
       }
-
-      return $this->render('@HVForum/Forum/addPost.html.twig', array(
-        'urlSection' => $url,
-        'idTopic' => $id,
-      ));
+      return $this->redirectToRoute('hv_forum_homepage');
     }
 
     public function editPostAction(Request $request, $url, $id, $idPost)
     {
       $em = $this->getDoctrine()->getManager();
+      $session = $request->getSession();
+      if ($session->get('User') != null) {
 
-      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
-      if (!$section) {
-        throw $this->createNotFoundException(
-            'Aucune section disponible avec l\'url suivant : '.$url
-        );
+        $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+        if (!$section) {
+          throw $this->createNotFoundException(
+              'Aucune section disponible avec l\'url suivant : '.$url
+          );
+        }
+        $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+        if (!$topic) {
+          throw $this->createNotFoundException(
+              'Aucun topic disponible avec l\'id suivant : '.$id
+          );
+        }
+        $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
+
+        if ($session->get('User')->getRights() == 1 OR $session->get('User')->getId() == $post->getUsers()->getId()) {
+          if ($request->isMethod('POST')) {
+            $post->setContent($_POST['postContent']);
+            $em->flush();
+
+            return $this->redirectToRoute('hv_forum_topic', array(
+              'url' => $url,
+              'id' => $id,
+            ));
+          }
+
+          return $this->render('@HVForum/Forum/editPost.html.twig', array(
+            'urlSection' => $url,
+            'id' => $id,
+            'post' => $post,
+          ));
+        }
       }
+      return $this->redirectToRoute('hv_forum_homepage');
 
-      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
-      if (!$topic) {
-        throw $this->createNotFoundException(
-            'Aucun topic disponible avec l\'id suivant : '.$id
-        );
-      }
-
-      $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
-
-      if ($request->isMethod('POST')) {
-        $post->setContent($_POST['postContent']);
-        $em->flush();
-
-        return $this->redirectToRoute('hv_forum_topic', array(
-          'url' => $url,
-          'id' => $id,
-        ));
-      }
-
-      return $this->render('@HVForum/Forum/editPost.html.twig', array(
-        'urlSection' => $url,
-        'id' => $id,
-        'post' => $post,
-      ));
     }
 
-    public function deletePostAction($url, $id, $idPost)
+    public function deletePostAction(Request $request, $url, $id, $idPost)
     {
       $em = $this->getDoctrine()->getManager();
+      $session = $request->getSession();
+      if ($session->get('User') != null) {
+        $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
+        if (!$section) {
+          throw $this->createNotFoundException(
+              'Aucune section disponible avec l\'url suivant : '.$url
+          );
+        }
 
-      $section = $em->getRepository('HVForumBundle:ForumSection')->findByUrl($url);
-      if (!$section) {
-        throw $this->createNotFoundException(
-            'Aucune section disponible avec l\'url suivant : '.$url
-        );
+        $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
+        if (!$topic) {
+          throw $this->createNotFoundException(
+              'Aucun topic disponible avec l\'id suivant : '.$id
+          );
+        }
+
+        $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
+        if ($session->get('User')->getRights() == 1 OR $session->get('User')->getId() == $post->getUsers()->getId()) {
+          $em->remove($post);
+          $em->flush();
+          return $this->redirectToRoute('hv_forum_topic', array(
+            'url' => $url,
+            'id' => $id,
+          ));
+        }
       }
-
-      $topic = $em->getRepository('HVForumBundle:ForumTopic')->find($id);
-      if (!$topic) {
-        throw $this->createNotFoundException(
-            'Aucun topic disponible avec l\'id suivant : '.$id
-        );
-      }
-
-      $post = $em->getRepository('HVForumBundle:ForumPost')->find($idPost);
-
-      $em->remove($post);
-      $em->flush();
-
-      return $this->redirectToRoute('hv_forum_topic', array(
-        'url' => $url,
-        'id' => $id,
-      ));
+      return $this->redirectToRoute('hv_forum_homepage');
     }
 
     public function createCategoryAction(Request $request)

@@ -10,7 +10,7 @@
         {% if app.session.get('User') != null %}
           <a href="{{ path('hv_forum_post_add', {'url' : urlSection, 'id': id }) }}"><button class="btn btn-dark">Répondre</button></a>
         {% endif %}
-        <a href="{{ path('hv_forum_section', {'url' : urlSection }) }}"><button class="btn btn-dark">Retour au forum</button></a>
+        <a href="{{ path('hv_forum_section', {'url' : urlSection }) }}"><button class="btn btn-dark" style="margin-left:20px;">Retour au forum</button></a>
       </div>
     </div>
       {% set dateLastPost = null %}
