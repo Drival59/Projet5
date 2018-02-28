@@ -37,16 +37,20 @@
       {% endfor %}
       {% for comment in comments %}
         <div class="commentCurrentEvent">
-          <div class="avatarComment">
-            <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
-          </div>
-          <div class="commentContent">
-            <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
-            <p>{{ comment.content }}</p>
+          <div class="avatarAndContent">
+            <div class="avatarComment">
+              <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
+            </div>
+            <div class="commentContent">
+              <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>
+              <p>{{ comment.content }}</p>
+            </div>
           </div>
           {% if app.session.get('User') != null and app.session.get('User').id == comment.users.id %}
+          <div class="buttonsComment">
             <a href="{{ path('hv_news_editComment', {'id': comment.id}) }}"><button class="btn btn-dark"><i class="fas fa-pen-square"></i></button></a>
             <a href="{{ path('hv_news_deleteComment', {'id': comment.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+          </div>
           {% endif %}
         </div>
       {% endfor %}

@@ -205,12 +205,20 @@ class NewsController extends Controller
     public function deleteCommentAction(Request $request)
     {
       $session = $request->getSession();
-      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+      if ($session->get('User') != null) {
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('HVNewsBundle:Comments')->find($_GET['id']);
 
-        $em->remove($comment);
-        $em->flush();
+        if ($session->get('User')->getRights() == 1 OR $session->get('User')->getId() == $comment->getUsers()->getId()) {
+          $em->remove($comment);
+          $em->flush();
+          if ($session->get('User')->getId() == $comment->getUsers()->getId()) {
+            $this->addFlash('notice', 'Votre commentaire a bien été supprimé.');
+            return $this->redirectToRoute('hv_news_currentevents', array(
+              'id' => $comment->getNews()->getId(),
+            ));
+          }
+        }
       }
       return $this->redirectToRoute('hv_users_admin');
     }
@@ -218,17 +226,24 @@ class NewsController extends Controller
     public function editCommentAction(Request $request)
     {
       $session = $request->getSession();
-      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+      if ($session->get('User') != null) {
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('HVNewsBundle:Comments')->find($_GET['id']);
-        $formComments = $this->createForm(CommentsType::class, new Comments());
-
-        if ($formComments->handleRequest($request)->isValid()) {
-          $comment->setContent($_POST['hv_newsbundle_comments']['content']);
-          $comment->setReports(0);
-          $em->merge($comment);
-          $em->flush();
-          return $this->redirectToRoute('hv_users_admin');
+        if ($session->get('User')->getRights() == 1 OR $session->get('User')->getId() == $comment->getUsers()->getId()) {
+          $formComments = $this->createForm(CommentsType::class, new Comments());
+          if ($formComments->handleRequest($request)->isValid()) {
+            $comment->setContent($_POST['hv_newsbundle_comments']['content']);
+            $comment->setReports(0);
+            $em->merge($comment);
+            $em->flush();
+            if ($session->get('User')->getId() == $comment->getUsers()->getId()) {
+              $this->addFlash('notice', 'Votre commentaire a bien été édité.');
+              return $this->redirectToRoute('hv_news_currentevents', array(
+                'id' => $comment->getNews()->getId(),
+              ));
+            }
+            return $this->redirectToRoute('hv_users_admin');
+          }
         }
         return $this->render('@HVNews/News/editComment.html.twig', array(
           'comment' => $comment,

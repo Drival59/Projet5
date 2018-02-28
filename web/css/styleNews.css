@@ -112,7 +112,12 @@
   border: 2px solid #343a40;
   display: flex;
   align-items: top;
+  justify-content: space-between;
   padding-top: 10px;
+}
+.avatarAndContent
+{
+  display: flex;
 }
 .avatarComment
 {
@@ -129,6 +134,10 @@
 .commentContent p
 {
   margin-top: 10px;
+}
+.buttonsComment
+{
+  padding-right: 20px;
 }
 /**********                     **********/
 /**********   Page Admin News   **********/
