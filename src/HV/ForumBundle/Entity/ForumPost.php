@@ -25,7 +25,7 @@ class ForumPost
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -61,30 +61,6 @@ class ForumPost
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return ForumPost
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
     }
 
     /**
@@ -156,5 +132,29 @@ class ForumPost
     public function getForumTopic()
     {
         return $this->forumTopic;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return ForumPost
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

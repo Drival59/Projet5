@@ -32,7 +32,7 @@
             {% endif %}
             <hr/>
             {% set dateLastPost = post.datePost %}
-            <p>{{ post.content }}</p>
+            <p>{{ post.content|raw }}</p>
           </div>
         </div>
       {% endfor %}

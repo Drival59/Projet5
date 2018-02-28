@@ -14,7 +14,6 @@
   {% block stylesheets %}
   {% endblock %}
 
-
 </head>
 
 <body>
@@ -131,6 +130,10 @@
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
 
   {% endblock %}
-
+  <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+  <script>tinymce.init({ selector:'.tinymce', language:'fr_FR', entity_encoding:"raw",
+    plugins:      "code autolink",
+    valid_elements :"a[href|target=_blank],strong,u,p,iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
+    extended_valid_elements : "iframe[src|frameborder|style|scrolling|class|width|height|name|align]" });</script>
 </body>
 </html>

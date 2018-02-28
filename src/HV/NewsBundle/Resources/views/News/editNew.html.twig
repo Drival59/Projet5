@@ -17,7 +17,7 @@
 
     <div class="form-group">
       {{ form_label(formNew.content, "Contenu de l'actualité : (*)") }}
-      {{ form_widget(formNew.content, {'value' : new.content }) }}
+      {{ form_widget(formNew.content, {'attr': {'class': 'tinymce', 'rows': 20}, 'value': new.content}) }}
       {{ form_errors(formNew.content) }}
     </div>
 
