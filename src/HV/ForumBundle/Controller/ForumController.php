@@ -331,10 +331,10 @@ class ForumController extends Controller
     public function createCategoryAction(Request $request)
     {
       $session = $request->getSession();
-      $em = $this->getDoctrine()->getManager();
       if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
 
         if ($request->isMethod('POST')) {
+          $em = $this->getDoctrine()->getManager();
           $newCategory = new ForumCategory();
           $newCategory->setName($_POST['titleCategory']);
           $em->merge($newCategory);
