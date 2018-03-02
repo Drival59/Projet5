@@ -138,53 +138,58 @@ class NewsController extends Controller
       $em = $this->getDoctrine()->getManager();
 
       $new = $em->getRepository('HVNewsBundle:News')->find($_GET['id']);
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $editNew = new News();
+        $formNew = $this->createForm(NewsType::class, $editNew);
+        $formNew->remove('imageUrl');
+        $formNew->add('imageUrl', FileType::class, array(
+          'required' => false,
+        ));
 
-      $editNew = new News();
-      $formNew = $this->createForm(NewsType::class, $editNew);
-      $formNew->remove('imageUrl');
-      $formNew->add('imageUrl', FileType::class, array(
-        'required' => false,
-      ));
+        if ($formNew->handleRequest($request)->isValid()) {
+          $new->setTitle($editNew->getTitle());
+          $new->setContent($editNew->getContent());
 
-      if ($formNew->handleRequest($request)->isValid()) {
-        $new->setTitle($editNew->getTitle());
-        $new->setContent($editNew->getContent());
+          if ($editNew->getImageUrl() != null) {
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $editNew->getImageUrl();
+            $fileName = $file->getClientOriginalName();
+            $file->move(
+              $this->getParameter('news_images_directory'),
+              $fileName
+            );
+            $new->setImageUrl($fileName);
+          }
 
-        if ($editNew->getImageUrl() != null) {
-          /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-          $file = $editNew->getImageUrl();
-          $fileName = $file->getClientOriginalName();
-          $file->move(
-            $this->getParameter('news_images_directory'),
-            $fileName
-          );
-          $new->setImageUrl($fileName);
+          if ($editNew->getInCarousel() != null) {
+            $new->setInCarousel($editNew->getInCarousel());
+          } else {
+            $new->setInCarousel(0);
+          }
+
+          $em->merge($new);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
         }
 
-        if ($editNew->getInCarousel() != null) {
-          $new->setInCarousel($editNew->getInCarousel());
-        } else {
-          $new->setInCarousel(0);
-        }
-
-        $em->merge($new);
-        $em->flush();
-        return $this->redirectToRoute('hv_users_admin');
+        return $this->render('@HVNews/News/editNew.html.twig', array(
+          'formNew' => $formNew->createView(),
+          'new' => $new,
+        ));
       }
-
-      return $this->render('@HVNews/News/editNew.html.twig', array(
-        'formNew' => $formNew->createView(),
-        'new' => $new,
-      ));
+      return $this->redirectToRoute('hv_users_admin');
     }
 
-    public function deleteNewAction()
+    public function deleteNewAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
-      $new = $em->getRepository('HVNewsBundle:News')->find($_GET['id']);
-      if ($new != null) {
-        $em->remove($new);
-        $em->flush();
+      $session = $request->getSession();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $new = $em->getRepository('HVNewsBundle:News')->find($_GET['id']);
+        if ($new != null) {
+          $em->remove($new);
+          $em->flush();
+        }
       }
       return $this->redirectToRoute('hv_users_admin');
     }
