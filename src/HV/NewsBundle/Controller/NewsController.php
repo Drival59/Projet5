@@ -98,35 +98,38 @@ class NewsController extends Controller
     {
       $session = $request->getSession();
       $em = $this->getDoctrine()->getManager();
+      if ($session->get('User') != null AND $session->get('User')->getRights() == 1) {
+        $addNew = new News();
+        $formNew = $this->createForm(NewsType::class, $addNew);
 
-      $addNew = new News();
-      $formNew = $this->createForm(NewsType::class, $addNew);
+        if ($formNew->handleRequest($request)->isValid()) {
+          $new = new News();
+          $new->setTitle($addNew->getTitle());
+          $new->setContent($addNew->getContent());
+          $new->setUsers($session->get('User'));
+          /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+          $file = $addNew->getImageUrl();
+          var_dump($file);
+          $fileName = $file->getClientOriginalName();
+          $file->move(
+            $this->getParameter('news_images_directory'),
+            $fileName
+          );
+          $new->setImageUrl($fileName);
 
-      if ($formNew->handleRequest($request)->isValid()) {
-        $new = new News();
-        $new->setTitle($addNew->getTitle());
-        $new->setContent($addNew->getContent());
-        $new->setUsers($session->get('User'));
-        /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-        $file = $addNew->getImageUrl();
-        $fileName = $file->getClientOriginalName();
-        $file->move(
-          $this->getParameter('news_images_directory'),
-          $fileName
-        );
-        $new->setImageUrl($fileName);
+          if ($addNew->getInCarousel() != null) {
+            $new->setInCarousel($addNew->getInCarousel());
+          }
 
-        if ($addNew->getInCarousel() != null) {
-          $new->setInCarousel($addNew->getInCarousel());
+          $em->merge($new);
+          $em->flush();
+          return $this->redirectToRoute('hv_users_admin');
         }
-
-        $em->merge($new);
-        $em->flush();
-        return $this->redirectToRoute('hv_users_admin');
+        return $this->render('@HVNews/News/createNew.html.twig', array(
+          'formNew' => $formNew->createView(),
+        ));
       }
-      return $this->render('@HVNews/News/createNew.html.twig', array(
-        'formNew' => $formNew->createView(),
-      ));
+      return $this->redirectToRoute('hv_users_admin');
     }
 
     public function editNewAction(Request $request)

@@ -20,7 +20,8 @@ class NewsType extends AbstractType
     {
         $builder
           ->add('title', TextType::class)
-          ->add('content', TextareaType::class)
+          ->add('content', TextareaType::class, array(
+            'required' => false))
           ->add('inCarousel', CheckboxType::class, array(
             'label' => "Cochez si vous voulez l'actualité dans le caroussel",
             'required' => false))
