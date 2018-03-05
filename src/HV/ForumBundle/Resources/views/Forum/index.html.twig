@@ -11,7 +11,7 @@
             <th style="width:600px">Forum</th>
             <th>Dernier message</th>
             <th style="text-align:center">Sujets</th>
-            <th style="text-align:center">Posts</th>
+            <th class="hidden" style="text-align:center">Posts</th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@
                   <td>Aucun nouveau message</td>
                 {% endif %}
                 <td style="text-align:center">{{ countTopic }}</td>
-                <td style="text-align:center">{{ countPost }}</td>
+                <td class="hidden" style="text-align:center">{{ countPost }}</td>
 
               </tr>
             {% endif %}

@@ -39,7 +39,7 @@
         <div class="commentCurrentEvent">
           <div class="avatarAndContent">
             <div class="avatarComment">
-              <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="100%" height="100%"/>
+              <img src="{{ asset('images/avatars/' ~ comment.users.avatar ) }}" alt="avatar" width="75px" height="75px"/>
             </div>
             <div class="commentContent">
               <i><strong>{{ comment.users.login }}</strong> à ecrit ce commentaire le <strong>{{ comment.dateComment|date('d/m/Y à H:i') }}</strong> :</i>

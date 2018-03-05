@@ -81,3 +81,9 @@ a:hover
   display: flex;
   justify-content: flex-end;
 }
+@media (max-width: 960px) {
+  .hidden
+  {
+    display: none;
+  }
+}
